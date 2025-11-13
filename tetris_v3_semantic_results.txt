@@ -1,0 +1,384 @@
+
+======================================================================
+OMNISPATIAL BENCHMARK SUITE
+Comprehensive Multi-Dimensional Spatial Cognition Test
+======================================================================
+
+======================================================================
+DIMENSION 1: SCALE INVARIANCE
+======================================================================
+Testing spatial reasoning across different canvas sizes...
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-100.0, Fronts=23, Pareto size=1
+  Gen 5: Best overlap=-100.0, Fronts=12, Pareto size=1
+  Gen 10: Best overlap=-100.0, Fronts=12, Pareto size=1
+  Gen 15: Best overlap=-100.0, Fronts=13, Pareto size=4
+  ✅ Final: Overlap=0.0
+  960x540: 906.16ms, confidence=1.000, method=tetris_nsga2
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-200.0, Fronts=18, Pareto size=1
+  Gen 5: Best overlap=-200.0, Fronts=13, Pareto size=1
+  Gen 10: Best overlap=-200.0, Fronts=12, Pareto size=7
+  Gen 15: Best overlap=-200.0, Fronts=5, Pareto size=26
+  ✅ Final: Overlap=0.0
+  1920x1080: 639.54ms, confidence=1.000, method=tetris_nsga2
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-200.0, Fronts=18, Pareto size=2
+  Gen 5: Best overlap=-200.0, Fronts=4, Pareto size=27
+  Gen 10: Best overlap=-200.0, Fronts=7, Pareto size=24
+  Gen 15: Best overlap=-200.0, Fronts=5, Pareto size=26
+  ✅ Final: Overlap=0.0
+  3840x2160: 813.88ms, confidence=1.000, method=tetris_nsga2
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-200.0, Fronts=19, Pareto size=2
+  Gen 5: Best overlap=-200.0, Fronts=8, Pareto size=18
+  Gen 10: Best overlap=-200.0, Fronts=9, Pareto size=22
+  Gen 15: Best overlap=-200.0, Fronts=8, Pareto size=23
+  ✅ Final: Overlap=0.0
+  7680x4320: 3421.56ms, confidence=1.000, method=tetris_nsga2
+
+  Scale Invariance Score: 60.4/100
+
+======================================================================
+DIMENSION 2: DENSITY RESILIENCE
+======================================================================
+Testing performance from sparse to dense layouts...
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-200.0, Fronts=12, Pareto size=1
+  Gen 5: Best overlap=-200.0, Fronts=14, Pareto size=2
+  Gen 10: Best overlap=-200.0, Fronts=10, Pareto size=1
+  Gen 15: Best overlap=-200.0, Fronts=16, Pareto size=1
+  ✅ Final: Overlap=0.0
+  5 blocks (4.3% density): 706.65ms, overlaps=0, confidence=1.000
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-200.0, Fronts=8, Pareto size=14
+  Gen 5: Best overlap=-200.0, Fronts=2, Pareto size=29
+  Gen 10: Best overlap=-200.0, Fronts=2, Pareto size=29
+  Gen 15: Best overlap=-200.0, Fronts=2, Pareto size=27
+  ✅ Final: Overlap=0.0
+  10 blocks (8.7% density): 814.34ms, overlaps=0, confidence=1.000
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-200.0, Fronts=10, Pareto size=13
+  Gen 5: Best overlap=-200.0, Fronts=14, Pareto size=1
+  Gen 10: Best overlap=-200.0, Fronts=12, Pareto size=4
+  Gen 15: Best overlap=-200.0, Fronts=10, Pareto size=2
+  ✅ Final: Overlap=0.0
+  25 blocks (21.7% density): 1224.00ms, overlaps=0, confidence=1.000
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-200.0, Fronts=10, Pareto size=7
+  Gen 5: Best overlap=-200.0, Fronts=7, Pareto size=20
+  Gen 10: Best overlap=-200.0, Fronts=3, Pareto size=28
+  Gen 15: Best overlap=-200.0, Fronts=1, Pareto size=30
+  ✅ Final: Overlap=0.0
+  50 blocks (43.4% density): 2446.59ms, overlaps=0, confidence=1.000
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-200.0, Fronts=3, Pareto size=23
+  Gen 5: Best overlap=-200.0, Fronts=4, Pareto size=24
+  Gen 10: Best overlap=-200.0, Fronts=3, Pareto size=19
+  Gen 15: Best overlap=-200.0, Fronts=4, Pareto size=18
+  ✅ Final: Overlap=-100.0
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-200.0, Fronts=4, Pareto size=29
+  Gen 5: Best overlap=-200.0, Fronts=4, Pareto size=28
+  Gen 10: Best overlap=-200.0, Fronts=3, Pareto size=36
+  Gen 15: Best overlap=-200.0, Fronts=2, Pareto size=27
+  Gen 20: Best overlap=-200.0, Fronts=3, Pareto size=37
+  Gen 25: Best overlap=-200.0, Fronts=1, Pareto size=40
+  Gen 30: Best overlap=-200.0, Fronts=2, Pareto size=36
+  Gen 35: Best overlap=-200.0, Fronts=2, Pareto size=37
+  ✅ Final: Overlap=-100.0
+  100 blocks (86.8% density): 23793.39ms, overlaps=1, confidence=0.955
+
+  Density Resilience Score: 94.1/100
+
+======================================================================
+DIMENSION 3: TOPOLOGICAL COMPLEXITY
+======================================================================
+Testing topological understanding and preservation...
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-200.0, Fronts=21, Pareto size=1
+  Gen 5: Best overlap=-200.0, Fronts=9, Pareto size=3
+  Gen 10: Best overlap=-200.0, Fronts=4, Pareto size=27
+  Gen 15: Best overlap=-200.0, Fronts=10, Pareto size=20
+  ✅ Final: Overlap=-100.0
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-200.0, Fronts=30, Pareto size=1
+  Gen 5: Best overlap=-200.0, Fronts=15, Pareto size=3
+  Gen 10: Best overlap=-200.0, Fronts=11, Pareto size=27
+  Gen 15: Best overlap=-200.0, Fronts=8, Pareto size=31
+  Gen 20: Best overlap=-200.0, Fronts=9, Pareto size=31
+  Gen 25: Best overlap=-200.0, Fronts=6, Pareto size=2
+  Gen 30: Best overlap=-200.0, Fronts=9, Pareto size=17
+  Gen 35: Best overlap=-200.0, Fronts=6, Pareto size=32
+  ✅ Final: Overlap=-100.0
+  linear       topology: β₀=8→9, β₁=0→5, χ=8→4, preservation=40.0/100
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-200.0, Fronts=19, Pareto size=1
+  Gen 5: Best overlap=-400.0, Fronts=11, Pareto size=2
+  Gen 10: Best overlap=-400.0, Fronts=9, Pareto size=3
+  Gen 15: Best overlap=-400.0, Fronts=5, Pareto size=20
+  ✅ Final: Overlap=-100.0
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-200.0, Fronts=25, Pareto size=1
+  Gen 5: Best overlap=-400.0, Fronts=15, Pareto size=2
+  Gen 10: Best overlap=-400.0, Fronts=6, Pareto size=33
+  Gen 15: Best overlap=-400.0, Fronts=3, Pareto size=38
+  Gen 20: Best overlap=-400.0, Fronts=4, Pareto size=37
+  Gen 25: Best overlap=-400.0, Fronts=4, Pareto size=37
+  Gen 30: Best overlap=-400.0, Fronts=7, Pareto size=34
+  Gen 35: Best overlap=-400.0, Fronts=8, Pareto size=33
+  ✅ Final: Overlap=-100.0
+  grid         topology: β₀=12→12, β₁=13→13, χ=-1→-1, preservation=100.0/100
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-200.0, Fronts=25, Pareto size=1
+  Gen 5: Best overlap=-200.0, Fronts=14, Pareto size=1
+  Gen 10: Best overlap=-200.0, Fronts=12, Pareto size=5
+  Gen 15: Best overlap=-200.0, Fronts=7, Pareto size=24
+  ✅ Final: Overlap=0.0
+  circular     topology: β₀=8→9, β₁=7→9, χ=1→0, preservation=70.0/100
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-100.0, Fronts=30, Pareto size=1
+  Gen 5: Best overlap=-200.0, Fronts=14, Pareto size=6
+  Gen 10: Best overlap=-200.0, Fronts=4, Pareto size=27
+  Gen 15: Best overlap=-200.0, Fronts=7, Pareto size=24
+  ✅ Final: Overlap=-100.0
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-200.0, Fronts=39, Pareto size=1
+  Gen 5: Best overlap=-200.0, Fronts=22, Pareto size=2
+  Gen 10: Best overlap=-200.0, Fronts=9, Pareto size=31
+  Gen 15: Best overlap=-200.0, Fronts=4, Pareto size=37
+  Gen 20: Best overlap=-200.0, Fronts=5, Pareto size=36
+  Gen 25: Best overlap=-200.0, Fronts=5, Pareto size=36
+  Gen 30: Best overlap=-200.0, Fronts=7, Pareto size=34
+  Gen 35: Best overlap=-200.0, Fronts=6, Pareto size=35
+  ✅ Final: Overlap=-100.0
+  hierarchical topology: β₀=10→11, β₁=7→9, χ=3→2, preservation=70.0/100
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-700.0, Fronts=28, Pareto size=2
+  Gen 5: Best overlap=-900.0, Fronts=6, Pareto size=5
+  Gen 10: Best overlap=-900.0, Fronts=9, Pareto size=14
+  Gen 15: Best overlap=-900.0, Fronts=3, Pareto size=27
+  ✅ Final: Overlap=-500.0
+  random       topology: β₀=8→9, β₁=9→9, χ=-1→0, preservation=70.0/100
+
+  Topological Complexity Score: 70.0/100
+
+======================================================================
+DIMENSION 4: TEMPORAL CONSISTENCY
+======================================================================
+Testing placement consistency in evolving layouts...
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=0.0, Fronts=30, Pareto size=1
+  Gen 5: Best overlap=0.0, Fronts=16, Pareto size=1
+  Gen 10: Best overlap=0.0, Fronts=5, Pareto size=26
+  Gen 15: Best overlap=0.0, Fronts=6, Pareto size=25
+  ✅ Final: Overlap=0.0
+  Step 0: (960, 930), method=tetris_nsga2, confidence=1.000
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=0.0, Fronts=30, Pareto size=1
+  Gen 5: Best overlap=-100.0, Fronts=13, Pareto size=3
+  Gen 10: Best overlap=-100.0, Fronts=12, Pareto size=18
+  Gen 15: Best overlap=-100.0, Fronts=7, Pareto size=24
+  ✅ Final: Overlap=0.0
+  Step 1: (1010, 730), method=tetris_nsga2, confidence=1.000
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=0.0, Fronts=30, Pareto size=1
+  Gen 5: Best overlap=-100.0, Fronts=7, Pareto size=9
+  Gen 10: Best overlap=-100.0, Fronts=7, Pareto size=24
+  Gen 15: Best overlap=-100.0, Fronts=7, Pareto size=24
+  ✅ Final: Overlap=0.0
+  Step 2: (940, 530), method=tetris_nsga2, confidence=1.000
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=0.0, Fronts=30, Pareto size=1
+  Gen 5: Best overlap=-100.0, Fronts=9, Pareto size=12
+  Gen 10: Best overlap=-100.0, Fronts=8, Pareto size=21
+  Gen 15: Best overlap=-100.0, Fronts=6, Pareto size=22
+  ✅ Final: Overlap=0.0
+  Step 3: (950, 330), method=tetris_nsga2, confidence=1.000
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=0.0, Fronts=30, Pareto size=1
+  Gen 5: Best overlap=-100.0, Fronts=6, Pareto size=8
+  Gen 10: Best overlap=-100.0, Fronts=10, Pareto size=20
+  Gen 15: Best overlap=-100.0, Fronts=8, Pareto size=23
+  ✅ Final: Overlap=0.0
+  Step 4: (870, 180), method=tetris_nsga2, confidence=1.000
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-100.0, Fronts=25, Pareto size=1
+  Gen 5: Best overlap=-100.0, Fronts=9, Pareto size=16
+  Gen 10: Best overlap=-100.0, Fronts=7, Pareto size=21
+  Gen 15: Best overlap=-100.0, Fronts=5, Pareto size=22
+  ✅ Final: Overlap=0.0
+  Step 5: (1170, 580), method=tetris_nsga2, confidence=1.000
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-100.0, Fronts=28, Pareto size=1
+  Gen 5: Best overlap=-100.0, Fronts=9, Pareto size=1
+  Gen 10: Best overlap=-100.0, Fronts=12, Pareto size=4
+  Gen 15: Best overlap=-100.0, Fronts=8, Pareto size=4
+  ✅ Final: Overlap=0.0
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-100.0, Fronts=36, Pareto size=1
+  Gen 5: Best overlap=-100.0, Fronts=12, Pareto size=14
+  Gen 10: Best overlap=-100.0, Fronts=4, Pareto size=34
+  Gen 15: Best overlap=-100.0, Fronts=9, Pareto size=30
+  Gen 20: Best overlap=-100.0, Fronts=6, Pareto size=32
+  Gen 25: Best overlap=-100.0, Fronts=8, Pareto size=28
+  Gen 30: Best overlap=-100.0, Fronts=6, Pareto size=31
+  Gen 35: Best overlap=-100.0, Fronts=6, Pareto size=31
+  ✅ Final: Overlap=0.0
+  Step 6: (1160, 430), method=tetris_nsga2, confidence=1.000
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-100.0, Fronts=29, Pareto size=1
+  Gen 5: Best overlap=-100.0, Fronts=15, Pareto size=1
+  Gen 10: Best overlap=-100.0, Fronts=10, Pareto size=19
+  Gen 15: Best overlap=-100.0, Fronts=11, Pareto size=20
+  ✅ Final: Overlap=0.0
+  Step 7: (620, 880), method=tetris_nsga2, confidence=1.000
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-100.0, Fronts=27, Pareto size=1
+  Gen 5: Best overlap=-200.0, Fronts=8, Pareto size=16
+  Gen 10: Best overlap=-200.0, Fronts=6, Pareto size=25
+  Gen 15: Best overlap=-200.0, Fronts=9, Pareto size=22
+  ✅ Final: Overlap=0.0
+  Step 8: (1070, 180), method=tetris_nsga2, confidence=1.000
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-200.0, Fronts=26, Pareto size=1
+  Gen 5: Best overlap=-200.0, Fronts=16, Pareto size=9
+  Gen 10: Best overlap=-200.0, Fronts=6, Pareto size=24
+  Gen 15: Best overlap=-200.0, Fronts=3, Pareto size=28
+  ✅ Final: Overlap=0.0
+  Step 9: (690, 680), method=tetris_nsga2, confidence=1.000
+
+  Method Consistency: 90.0/100
+  Confidence Stability: 100.0/100
+  Temporal Consistency Score: 95.0/100
+
+======================================================================
+DIMENSION 5: SEMANTIC COHERENCE
+======================================================================
+Testing semantic grouping and relationship preservation...
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-200.0, Fronts=8, Pareto size=14
+  Gen 5: Best overlap=-400.0, Fronts=2, Pareto size=28
+  Gen 10: Best overlap=-400.0, Fronts=4, Pareto size=26
+  Gen 15: Best overlap=-400.0, Fronts=3, Pareto size=27
+  ✅ Final: Overlap=0.0
+  header  : same_group_dist=1250.0px, other_group_dist=1328.6px, coherence=21.2/100
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-200.0, Fronts=9, Pareto size=1
+  Gen 5: Best overlap=-200.0, Fronts=17, Pareto size=1
+  Gen 10: Best overlap=-200.0, Fronts=9, Pareto size=3
+  Gen 15: Best overlap=-200.0, Fronts=4, Pareto size=27
+  ✅ Final: Overlap=0.0
+  content : same_group_dist=1371.9px, other_group_dist=1390.9px, coherence=20.3/100
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-200.0, Fronts=18, Pareto size=1
+  Gen 5: Best overlap=-200.0, Fronts=2, Pareto size=29
+  Gen 10: Best overlap=-200.0, Fronts=1, Pareto size=30
+  Gen 15: Best overlap=-200.0, Fronts=1, Pareto size=30
+  ✅ Final: Overlap=0.0
+  footer  : same_group_dist=385.4px, other_group_dist=777.9px, coherence=40.3/100
+
+  Semantic Coherence Score: 27.3/100
+
+======================================================================
+DIMENSION 6: ADVERSARIAL ROBUSTNESS
+======================================================================
+Testing edge cases and challenging scenarios...
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=0.0, Fronts=30, Pareto size=1
+  Gen 5: Best overlap=0.0, Fronts=7, Pareto size=1
+  Gen 10: Best overlap=0.0, Fronts=12, Pareto size=1
+  Gen 15: Best overlap=0.0, Fronts=9, Pareto size=7
+  ✅ Final: Overlap=0.0
+  ✓ empty_canvas        : valid=True, confidence=1.000, time=451.65ms
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-100.0, Fronts=26, Pareto size=1
+  Gen 5: Best overlap=-100.0, Fronts=7, Pareto size=1
+  Gen 10: Best overlap=-100.0, Fronts=21, Pareto size=1
+  Gen 15: Best overlap=-100.0, Fronts=8, Pareto size=17
+  ✅ Final: Overlap=0.0
+  ✓ single_block        : valid=True, confidence=1.000, time=456.20ms
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-200.0, Fronts=26, Pareto size=2
+  Gen 5: Best overlap=-400.0, Fronts=11, Pareto size=19
+  Gen 10: Best overlap=-400.0, Fronts=5, Pareto size=25
+  Gen 15: Best overlap=-400.0, Fronts=3, Pareto size=27
+  ✅ Final: Overlap=-100.0
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-300.0, Fronts=35, Pareto size=2
+  Gen 5: Best overlap=-400.0, Fronts=17, Pareto size=10
+  Gen 10: Best overlap=-400.0, Fronts=6, Pareto size=35
+  Gen 15: Best overlap=-400.0, Fronts=10, Pareto size=31
+  Gen 20: Best overlap=-400.0, Fronts=5, Pareto size=36
+  Gen 25: Best overlap=-400.0, Fronts=8, Pareto size=33
+  Gen 30: Best overlap=-400.0, Fronts=7, Pareto size=34
+  Gen 35: Best overlap=-400.0, Fronts=8, Pareto size=33
+  ✅ Final: Overlap=-100.0
+  ✓ extreme_density     : valid=True, confidence=0.974, time=1464.26ms
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-300.0, Fronts=24, Pareto size=1
+  Gen 5: Best overlap=-300.0, Fronts=9, Pareto size=3
+  Gen 10: Best overlap=-300.0, Fronts=14, Pareto size=1
+  Gen 15: Best overlap=-300.0, Fronts=17, Pareto size=1
+  ✅ Final: Overlap=-100.0
+  ✓ mismatched_sizes    : valid=True, confidence=1.000, time=585.97ms
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-100.0, Fronts=22, Pareto size=1
+  Gen 5: Best overlap=-100.0, Fronts=13, Pareto size=9
+  Gen 10: Best overlap=-100.0, Fronts=2, Pareto size=29
+  Gen 15: Best overlap=-100.0, Fronts=5, Pareto size=26
+  ✅ Final: Overlap=0.0
+  ✗ corner_placement    : valid=False, confidence=1.000, time=503.09ms
+
+  Adversarial Robustness Score: 90.0/100
+
+======================================================================
+DIMENSION 7: MULTI-OBJECTIVE OPTIMIZATION
+======================================================================
+Testing balance of competing constraints...
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-200.0, Fronts=13, Pareto size=4
+  Gen 5: Best overlap=-200.0, Fronts=4, Pareto size=21
+  Gen 10: Best overlap=-200.0, Fronts=4, Pareto size=25
+  Gen 15: Best overlap=-200.0, Fronts=7, Pareto size=21
+  ✅ Final: Overlap=0.0
+  high_priority_dense      : 2/5 objectives, balance=40.0/100, confidence=1.000
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-200.0, Fronts=6, Pareto size=5
+  Gen 5: Best overlap=-200.0, Fronts=12, Pareto size=9
+  Gen 10: Best overlap=-200.0, Fronts=5, Pareto size=26
+  Gen 15: Best overlap=-200.0, Fronts=5, Pareto size=26
+  ✅ Final: Overlap=0.0
+  low_priority_sparse      : 2/5 objectives, balance=40.0/100, confidence=1.000
+🎮 NSGA-II Tetris Optimization: 1 blocks
+  Gen 0: Best overlap=-200.0, Fronts=8, Pareto size=1
+  Gen 5: Best overlap=-200.0, Fronts=7, Pareto size=10
+  Gen 10: Best overlap=-200.0, Fronts=5, Pareto size=24
+  Gen 15: Best overlap=-200.0, Fronts=3, Pareto size=28
+  ✅ Final: Overlap=0.0
+  medium_priority_mixed    : 2/5 objectives, balance=40.0/100, confidence=1.000
+
+  Multi-Objective Optimization Score: 40.0/100
+
+======================================================================
+OVERALL OMNISPATIAL SCORE
+======================================================================
+  scale_invariance            60.4/100 (weight=0.15) →  9.06
+  density_resilience          94.1/100 (weight=0.15) → 14.11
+  topological_complexity      70.0/100 (weight=0.20) → 14.00
+  temporal_consistency        95.0/100 (weight=0.10) →  9.50
+  semantic_coherence          27.3/100 (weight=0.15) →  4.09
+  adversarial_robustness      90.0/100 (weight=0.15) → 13.50
+  multi_objective             40.0/100 (weight=0.10) →  4.00
+
+  ======================================================================
+  OMNISPATIAL SCORE: 68.26/100
+  ======================================================================
+
+  Grade: C (Satisfactory)
+
+  Total benchmark time: 62.66 seconds
+
+  ✓ OmniSpatial Benchmark Complete!
+
+  📊 Results saved to omnispatial_results.json

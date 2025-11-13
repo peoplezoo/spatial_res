@@ -1,27 +1,27 @@
 {
   "scale_invariance": {
-    "score": 60.06807078905718,
+    "score": 59.55858486490316,
     "details": {
       "960x540": {
-        "time_ms": 820.1000690460205,
+        "time_ms": 883.3959102630615,
         "confidence": 1.0,
         "method": "tetris_nsga2",
         "strategies": 5
       },
       "1920x1080": {
-        "time_ms": 640.4693126678467,
+        "time_ms": 599.1792678833008,
         "confidence": 1.0,
         "method": "tetris_nsga2",
         "strategies": 5
       },
       "3840x2160": {
-        "time_ms": 861.4277839660645,
+        "time_ms": 787.513256072998,
         "confidence": 1.0,
         "method": "tetris_nsga2",
         "strategies": 5
       },
       "7680x4320": {
-        "time_ms": 3410.0351333618164,
+        "time_ms": 3388.608455657959,
         "confidence": 1.0,
         "method": "tetris_nsga2",
         "strategies": 5
@@ -33,35 +33,35 @@
     "details": {
       "density_5": {
         "blocks": 5,
-        "time_ms": 711.5020751953125,
+        "time_ms": 748.4354972839355,
         "confidence": 1.0,
         "overlaps": 0,
         "method": "tetris_nsga2"
       },
       "density_10": {
         "blocks": 10,
-        "time_ms": 829.7224044799805,
+        "time_ms": 845.1781272888184,
         "confidence": 1.0,
         "overlaps": 0,
         "method": "tetris_nsga2"
       },
       "density_25": {
         "blocks": 25,
-        "time_ms": 1211.8148803710938,
+        "time_ms": 1239.354133605957,
         "confidence": 1.0,
         "overlaps": 0,
         "method": "tetris_nsga2"
       },
       "density_50": {
         "blocks": 50,
-        "time_ms": 2550.1773357391357,
+        "time_ms": 2608.8926792144775,
         "confidence": 1.0,
         "overlaps": 0,
         "method": "tetris_nsga2"
       },
       "density_100": {
         "blocks": 100,
-        "time_ms": 24421.62537574768,
+        "time_ms": 24786.036729812622,
         "confidence": 0.9545454545454546,
         "overlaps": 1,
         "method": "constraint_satisfaction"
@@ -69,10 +69,10 @@
     }
   },
   "topological_complexity": {
-    "score": 70.0,
+    "score": 76.0,
     "details": {
       "linear": {
-        "time_ms": 700.6206512451172,
+        "time_ms": 696.7053413391113,
         "betti_0_before": 8,
         "betti_0_after": 9,
         "betti_1_before": 0,
@@ -83,7 +83,7 @@
         "method": "neuromorphic_field"
       },
       "grid": {
-        "time_ms": 919.6326732635498,
+        "time_ms": 928.5256862640381,
         "betti_0_before": 12,
         "betti_0_after": 12,
         "betti_1_before": 13,
@@ -94,7 +94,7 @@
         "method": "topological_cognition"
       },
       "circular": {
-        "time_ms": 562.175989151001,
+        "time_ms": 526.9985198974609,
         "betti_0_before": 8,
         "betti_0_after": 9,
         "betti_1_before": 7,
@@ -105,7 +105,7 @@
         "method": "tetris_nsga2"
       },
       "hierarchical": {
-        "time_ms": 719.2342281341553,
+        "time_ms": 684.0798854827881,
         "betti_0_before": 10,
         "betti_0_after": 11,
         "betti_1_before": 7,
@@ -116,15 +116,15 @@
         "method": "holographic_retrieval"
       },
       "random": {
-        "time_ms": 570.7542896270752,
+        "time_ms": 715.4326438903809,
         "betti_0_before": 8,
-        "betti_0_after": 9,
+        "betti_0_after": 8,
         "betti_1_before": 9,
         "betti_1_after": 9,
         "euler_before": -1,
-        "euler_after": 0,
-        "preservation_score": 70,
-        "method": "tetris_nsga2"
+        "euler_after": -1,
+        "preservation_score": 100,
+        "method": "holographic_retrieval"
       }
     }
   },
@@ -143,7 +143,7 @@
       {
         "step": 1,
         "position": [
-          1010.0,
+          860.0,
           680.0
         ],
         "method": "tetris_nsga2",
@@ -152,7 +152,7 @@
       {
         "step": 2,
         "position": [
-          920.0,
+          990.0,
           480.0
         ],
         "method": "tetris_nsga2",
@@ -161,8 +161,8 @@
       {
         "step": 3,
         "position": [
-          1010.0,
-          280.0
+          1030.0,
+          330.0
         ],
         "method": "tetris_nsga2",
         "confidence": 1.0
@@ -170,8 +170,8 @@
       {
         "step": 4,
         "position": [
-          810.0,
-          330.0
+          940.0,
+          180.0
         ],
         "method": "tetris_nsga2",
         "confidence": 1.0
@@ -179,8 +179,8 @@
       {
         "step": 5,
         "position": [
-          1170.0,
-          880.0
+          1160.0,
+          930.0
         ],
         "method": "tetris_nsga2",
         "confidence": 1.0
@@ -188,8 +188,8 @@
       {
         "step": 6,
         "position": [
-          820.0,
-          130.0
+          750.0,
+          480.0
         ],
         "method": "tetris_nsga2",
         "confidence": 1.0
@@ -197,8 +197,8 @@
       {
         "step": 7,
         "position": [
-          1240.0,
-          730.0
+          680.0,
+          280.0
         ],
         "method": "tetris_nsga2",
         "confidence": 1.0
@@ -206,8 +206,8 @@
       {
         "step": 8,
         "position": [
-          700.0,
-          880.0
+          1320.0,
+          730.0
         ],
         "method": "tetris_nsga2",
         "confidence": 1.0
@@ -215,8 +215,8 @@
       {
         "step": 9,
         "position": [
-          1120.0,
-          130.0
+          1230.0,
+          530.0
         ],
         "method": "tetris_nsga2",
         "confidence": 1.0
@@ -226,16 +226,16 @@
     "confidence_stability": 100.0
   },
   "semantic_coherence": {
-    "score": 27.978555604858048,
+    "score": 30.07613150452013,
     "details": {
       "header": {
         "position": [
-          1650.0,
+          950.0,
           100.0
         ],
-        "avg_distance_same_group": 1250.0,
-        "avg_distance_other_groups": 1328.6338286385428,
-        "coherence_score": 21.24114833954505,
+        "avg_distance_same_group": 550.0,
+        "avg_distance_other_groups": 713.8295498959164,
+        "coherence_score": 25.910328489869926,
         "method": "tetris_nsga2"
       },
       "content": {
@@ -250,12 +250,12 @@
       },
       "footer": {
         "position": [
-          650.0,
+          610.0,
           880.0
         ],
-        "avg_distance_same_group": 357.8597682622976,
-        "avg_distance_other_groups": 761.3575473041902,
-        "coherence_score": 42.432036948076004,
+        "avg_distance_same_group": 339.55504767112205,
+        "avg_distance_other_groups": 750.167583923277,
+        "coherence_score": 44.05558449673737,
         "method": "tetris_nsga2"
       }
     }
@@ -266,7 +266,7 @@
       "empty_canvas": {
         "success": true,
         "valid": true,
-        "time_ms": 441.9825077056885,
+        "time_ms": 449.7334957122803,
         "position": [
           960.0,
           540.0
@@ -277,7 +277,7 @@
       "single_block": {
         "success": true,
         "valid": true,
-        "time_ms": 471.00019454956055,
+        "time_ms": 443.0243968963623,
         "position": [
           1280.0,
           540.0
@@ -288,7 +288,7 @@
       "extreme_density": {
         "success": true,
         "valid": "True",
-        "time_ms": 1488.4305000305176,
+        "time_ms": 1478.865623474121,
         "position": [
           100.0,
           100.0
@@ -299,7 +299,7 @@
       "mismatched_sizes": {
         "success": true,
         "valid": true,
-        "time_ms": 608.3264350891113,
+        "time_ms": 574.6667385101318,
         "position": [
           1700.0,
           540.0
@@ -310,9 +310,9 @@
       "corner_placement": {
         "success": true,
         "valid": false,
-        "time_ms": 527.1735191345215,
+        "time_ms": 507.88283348083496,
         "position": [
-          1740.0,
+          1750.0,
           540.0
         ],
         "confidence": 1.0,
@@ -332,20 +332,20 @@
         "metrics": {
           "overlap_penalty": 100.0,
           "aesthetic_score": 50.0,
-          "proximity_score": 23.306649407017996,
+          "proximity_score": 23.904271010103066,
           "balance_score": 50.0,
           "flow_score": 100,
           "whitespace_quality": 86.99248120300751,
-          "tension_score": 1.5327948607124917,
+          "tension_score": 1.2186745082368826,
           "hierarchy_score": 70.0,
-          "total": 1812.700879768252,
-          "domain_bonus": 1049.9747656299521,
-          "semantic_bonus": 46.94986697598887,
-          "no_mans_land_penalty": -9347.905931726718,
+          "total": 1770.2026106206522,
+          "domain_bonus": 1031.4125323672065,
+          "semantic_bonus": 47.039809781858615,
+          "no_mans_land_penalty": -9372.093458325027,
           "spatial_entropy": 4.0,
           "complexity_score": 5.020576939575189,
           "position_priority_mi": 1.073192411043098,
-          "computation_time_ms": 862.40553855896
+          "computation_time_ms": 855.4239273071289
         }
       },
       "low_priority_sparse": {
@@ -357,20 +357,20 @@
         "metrics": {
           "overlap_penalty": 100.0,
           "aesthetic_score": 50.0,
-          "proximity_score": 27.064203374371687,
+          "proximity_score": 27.035905841265794,
           "balance_score": 50.0,
           "flow_score": 100,
           "whitespace_quality": 86.99248120300751,
-          "tension_score": 1.1114306684638315,
+          "tension_score": 1.317900737051496,
           "hierarchy_score": 66.66666666666667,
-          "total": 1774.98136796351,
-          "domain_bonus": 1031.4125323672065,
-          "semantic_bonus": 51.08120504822358,
-          "no_mans_land_penalty": -9372.093458325027,
+          "total": 2786.2784797398454,
+          "domain_bonus": 1414.5698389978108,
+          "semantic_bonus": 63.587207841767196,
+          "no_mans_land_penalty": -8756.458501431727,
           "spatial_entropy": 4.0,
           "complexity_score": 5.006422798909624,
           "position_priority_mi": 1.026011942157881,
-          "computation_time_ms": 1753.8111209869385
+          "computation_time_ms": 1136.6214752197266
         }
       },
       "medium_priority_mixed": {
@@ -395,18 +395,18 @@
           "spatial_entropy": 4.0,
           "complexity_score": 5.006422798909624,
           "position_priority_mi": 1.026011942157881,
-          "computation_time_ms": 1290.701150894165
+          "computation_time_ms": 1294.7297096252441
         }
       }
     }
   },
-  "overall_score": 68.32063032272364,
+  "overall_score": 69.75884381904986,
   "dimension_scores": {
-    "scale_invariance": 60.06807078905718,
+    "scale_invariance": 59.55858486490316,
     "density_resilience": 94.0909090909091,
-    "topological_complexity": 70.0,
+    "topological_complexity": 76.0,
     "temporal_consistency": 95.0,
-    "semantic_coherence": 27.978555604858048,
+    "semantic_coherence": 30.07613150452013,
     "adversarial_robustness": 90.0,
     "multi_objective": 40.0
   }

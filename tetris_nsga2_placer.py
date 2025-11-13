@@ -236,8 +236,20 @@ class NSGA2TetrisOptimizer:
             placed = existing_blocks.copy()
 
             for block in blocks_to_place:
-                # Random drop x-position
-                x = random.uniform(20, self.canvas_width - block.width - 20)
+                # Semantic-aware x-position: bias toward same-group blocks
+                same_group_blocks = [b for b in placed if b.semantic_group == block.semantic_group]
+
+                if same_group_blocks and random.random() < 0.9:  # 90% chance to cluster
+                    # Pick a random same-group block and place nearby
+                    anchor = random.choice(same_group_blocks)
+                    # Tighter clustering: random offset within ±80px
+                    offset = random.uniform(-80, 80)
+                    x = anchor.x + offset
+                    # Clamp to canvas bounds
+                    x = max(20, min(x, self.canvas_width - block.width - 20))
+                else:
+                    # Random drop x-position
+                    x = random.uniform(20, self.canvas_width - block.width - 20)
 
                 # Random rotation (0 or 90 degrees for simplicity)
                 rotation = random.choice([0, 90])
@@ -291,7 +303,7 @@ class NSGA2TetrisOptimizer:
 
         solution.objectives = {
             'overlap_penalty': -overlap_penalty,  # Negative because we maximize
-            'semantic_coherence': semantic_coherence,
+            'semantic_coherence': semantic_coherence * 10.0,  # 10x weight for semantic grouping
             'aesthetic_balance': aesthetic_balance,
             'flow_quality': flow_quality
         }
