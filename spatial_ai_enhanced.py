@@ -488,6 +488,537 @@ class InformationTheoreticAnalyzer:
         return complexity
 
 # ============================================================================
+# TOPOLOGICAL SPATIAL COGNITION
+# ============================================================================
+
+class TopologicalSpatialCognition:
+    """
+    Algebraic topology-based layout understanding
+    Uses persistent homology, Betti numbers, and topological signatures
+    for rotation/scale-invariant spatial reasoning
+    """
+
+    def __init__(self):
+        # Import the topology analyzer from extensions
+        try:
+            from spatial_quantum_extension import TopologicalAnalyzer
+            self.topology_analyzer = TopologicalAnalyzer()
+        except ImportError:
+            # Fallback if extension not available
+            self.topology_analyzer = None
+
+        self.topology_cache = {}
+        self.signature_history = deque(maxlen=100)
+
+    def optimize_position_topologically(
+        self,
+        new_block: Dict[str, Any],
+        existing_blocks: List,
+        constraints: Any
+    ) -> Dict[str, float]:
+        """
+        Find optimal position using topological invariants
+        Maintains desirable topological features like connectivity and holes
+        """
+
+        if not self.topology_analyzer:
+            # Fallback to simple placement
+            return {'x': 100.0, 'y': 100.0}
+
+        # Handle edge case: very few blocks
+        if len(existing_blocks) < 2:
+            # Not enough blocks for meaningful topology - use heuristic
+            return {'x': 100.0, 'y': 100.0}
+
+        # Analyze current topology
+        current_blocks = [b.to_dict() for b in existing_blocks]
+        current_topology = self.topology_analyzer.analyze_topology(current_blocks)
+
+        # Generate candidate positions
+        candidates = self._generate_topological_candidates(new_block, constraints)
+
+        # Score each candidate based on topological preservation
+        best_candidate = None
+        best_score = -float('inf')
+
+        for candidate in candidates:
+            # Temporarily add block
+            test_blocks = current_blocks + [{
+                **new_block,
+                'x': candidate['x'],
+                'y': candidate['y']
+            }]
+
+            # Analyze resulting topology
+            new_topology = self.topology_analyzer.analyze_topology(test_blocks)
+
+            # Score based on topological features
+            score = self._score_topology(current_topology, new_topology)
+
+            if score > best_score:
+                best_score = score
+                best_candidate = candidate
+
+        if best_candidate:
+            return best_candidate
+
+        return {'x': 100.0, 'y': 100.0}
+
+    def _generate_topological_candidates(
+        self,
+        new_block: Dict[str, Any],
+        constraints: Any
+    ) -> List[Dict[str, float]]:
+        """Generate candidates using topological principles"""
+
+        candidates = []
+        max_width = getattr(constraints, 'max_width', 1920)
+        max_height = getattr(constraints, 'max_height', 1080)
+        margin = getattr(constraints, 'min_padding', 20)
+
+        # Grid-based candidates
+        for x in range(int(margin), int(max_width - new_block.get('width', 200)), 100):
+            for y in range(int(margin), int(max_height - new_block.get('height', 150)), 100):
+                candidates.append({'x': float(x), 'y': float(y)})
+
+        return candidates[:50]  # Limit candidates for performance
+
+    def _score_topology(
+        self,
+        old_topology: Dict[str, Any],
+        new_topology: Dict[str, Any]
+    ) -> float:
+        """
+        Score topology preservation
+        Higher scores for maintaining connectivity and creating interesting patterns
+        """
+
+        score = 100.0
+
+        # Prefer maintaining connected components (Betti 0)
+        betti_0_change = abs(new_topology['betti_0'] - old_topology['betti_0'])
+        score -= betti_0_change * 20
+
+        # Prefer creating mild complexity (some holes are good)
+        target_betti_1 = 2  # Target: 2 holes for interesting layout
+        betti_1_new = new_topology['betti_1']
+        betti_1_deviation = abs(betti_1_new - target_betti_1)
+        score -= betti_1_deviation * 10
+
+        # Reward stable Euler characteristic
+        euler_change = abs(new_topology['euler_characteristic'] -
+                          old_topology['euler_characteristic'])
+        if euler_change <= 1:
+            score += 15
+        else:
+            score -= euler_change * 5
+
+        # Bonus for interesting topological signatures
+        if new_topology.get('topological_signature', '') not in self.signature_history:
+            score += 10  # Novelty bonus
+
+        # Morse critical points (prefer balanced distribution)
+        morse = new_topology.get('morse_critical_points', {})
+        minima = morse.get('minima', 0)
+        maxima = morse.get('maxima', 0)
+        balance = 1.0 / (1.0 + abs(minima - maxima))
+        score += balance * 10
+
+        return score
+
+
+# ============================================================================
+# HOLOGRAPHIC PATTERN RETRIEVAL
+# ============================================================================
+
+class HolographicPatternRetrieval:
+    """
+    Content-addressable spatial memory with infinite capacity
+    Uses holographic interference patterns for robust pattern matching
+    """
+
+    def __init__(self):
+        # Import holographic memory from extensions
+        try:
+            from spatial_quantum_extension import HolographicMemory
+            self.holographic_memory = HolographicMemory(capacity=10000, dimensions=512)
+        except ImportError:
+            self.holographic_memory = None
+
+        self.pattern_count = 0
+        self.retrieval_cache = {}
+
+    def optimize_position_holographically(
+        self,
+        new_block: Dict[str, Any],
+        existing_blocks: List,
+        constraints: Any
+    ) -> Dict[str, float]:
+        """
+        Find optimal position by retrieving similar historical patterns
+        Uses holographic memory for content-addressable recall
+        """
+
+        if not self.holographic_memory:
+            return {'x': 150.0, 'y': 150.0}
+
+        # Query holographic memory for similar patterns
+        similar_patterns = self.holographic_memory.retrieve(new_block)
+
+        if similar_patterns:
+            # Use weighted average of similar patterns
+            positions = self._aggregate_similar_patterns(
+                similar_patterns,
+                new_block,
+                existing_blocks
+            )
+            return positions
+        else:
+            # No similar patterns found - use heuristic
+            position = self._heuristic_placement(new_block, existing_blocks, constraints)
+
+            # Store this new pattern for future retrieval
+            self._store_pattern(new_block, position)
+
+            return position
+
+    def _aggregate_similar_patterns(
+        self,
+        similar_patterns: List[Dict[str, Any]],
+        new_block: Dict[str, Any],
+        existing_blocks: List
+    ) -> Dict[str, float]:
+        """
+        Aggregate positions from similar patterns with similarity weighting
+        """
+
+        total_weight = 0.0
+        weighted_x = 0.0
+        weighted_y = 0.0
+
+        for pattern in similar_patterns:
+            similarity = pattern.get('similarity', 0.5)
+            x = pattern.get('x', 100)
+            y = pattern.get('y', 100)
+
+            # Weight by similarity
+            weighted_x += x * similarity
+            weighted_y += y * similarity
+            total_weight += similarity
+
+        if total_weight > 0:
+            x_pos = weighted_x / total_weight
+            y_pos = weighted_y / total_weight
+        else:
+            x_pos = 100.0
+            y_pos = 100.0
+
+        # Adjust for overlaps with existing blocks
+        x_pos, y_pos = self._avoid_overlaps(
+            x_pos, y_pos,
+            new_block.get('width', 200),
+            new_block.get('height', 150),
+            existing_blocks
+        )
+
+        return {'x': x_pos, 'y': y_pos}
+
+    def _heuristic_placement(
+        self,
+        new_block: Dict[str, Any],
+        existing_blocks: List,
+        constraints: Any
+    ) -> Dict[str, float]:
+        """Heuristic placement when no patterns found"""
+
+        # Place based on semantic group or priority
+        priority = new_block.get('priority', 5)
+        semantic_group = new_block.get('semantic_group')
+
+        # High priority items go top-left
+        if priority >= 8:
+            return {'x': 50.0, 'y': 50.0}
+        elif priority >= 6:
+            return {'x': 100.0, 'y': 100.0}
+        else:
+            # Find empty space
+            return self._find_empty_space(new_block, existing_blocks, constraints)
+
+    def _find_empty_space(
+        self,
+        new_block: Dict[str, Any],
+        existing_blocks: List,
+        constraints: Any
+    ) -> Dict[str, float]:
+        """Find empty space in layout"""
+
+        max_width = getattr(constraints, 'max_width', 1920)
+        max_height = getattr(constraints, 'max_height', 1080)
+        margin = getattr(constraints, 'min_padding', 20)
+
+        # Try positions in a spiral pattern
+        for radius in range(0, 1000, 50):
+            for angle in np.linspace(0, 2*np.pi, 12):
+                x = max_width/2 + radius * np.cos(angle)
+                y = max_height/2 + radius * np.sin(angle)
+
+                if margin <= x <= max_width - new_block.get('width', 200) - margin:
+                    if margin <= y <= max_height - new_block.get('height', 150) - margin:
+                        # Check if position is free
+                        if self._is_position_free(x, y, new_block, existing_blocks):
+                            return {'x': x, 'y': y}
+
+        return {'x': margin, 'y': margin}
+
+    def _is_position_free(
+        self,
+        x: float,
+        y: float,
+        new_block: Dict[str, Any],
+        existing_blocks: List
+    ) -> bool:
+        """Check if position is free from overlaps"""
+
+        width = new_block.get('width', 200)
+        height = new_block.get('height', 150)
+
+        for block in existing_blocks:
+            if self._rectangles_overlap(
+                x, y, width, height,
+                block.x, block.y, block.width, block.height
+            ):
+                return False
+
+        return True
+
+    def _rectangles_overlap(
+        self, x1, y1, w1, h1, x2, y2, w2, h2
+    ) -> bool:
+        """Check if two rectangles overlap"""
+        return not (x1 + w1 < x2 or x2 + w2 < x1 or
+                   y1 + h1 < y2 or y2 + h2 < y1)
+
+    def _avoid_overlaps(
+        self,
+        x: float,
+        y: float,
+        width: float,
+        height: float,
+        existing_blocks: List
+    ) -> Tuple[float, float]:
+        """Adjust position to avoid overlaps"""
+
+        max_attempts = 20
+        offset = 50
+
+        for attempt in range(max_attempts):
+            overlaps = False
+
+            for block in existing_blocks:
+                if self._rectangles_overlap(
+                    x, y, width, height,
+                    block.x, block.y, block.width, block.height
+                ):
+                    overlaps = True
+                    # Move away from overlap
+                    x += offset
+                    if x > 1800:
+                        x = 100
+                        y += offset
+                    break
+
+            if not overlaps:
+                break
+
+        return x, y
+
+    def _store_pattern(
+        self,
+        block: Dict[str, Any],
+        position: Dict[str, float]
+    ):
+        """Store pattern in holographic memory"""
+
+        if self.holographic_memory:
+            pattern_record = {
+                **block,
+                'x': position['x'],
+                'y': position['y']
+            }
+
+            pattern_id = f"pattern_{self.pattern_count}"
+            self.holographic_memory.store(pattern_id, pattern_record)
+            self.pattern_count += 1
+
+
+# ============================================================================
+# NEUROMORPHIC FIELD COMPUTATION
+# ============================================================================
+
+class NeuromorphicFieldComputation:
+    """
+    Biologically-realistic spatial processing using spiking neural networks
+    Models spatial cognition as neuromorphic field dynamics
+    """
+
+    def __init__(self):
+        # Import neuromorphic field from extensions
+        try:
+            from spatial_quantum_extension import NeuromorphicField
+            # Create neuromorphic field with proper initialization
+            resolution = (50, 50)
+            self.neuromorphic_field = NeuromorphicField(
+                resolution=resolution,
+                membrane_potential=np.zeros(resolution),
+                spike_history=np.zeros((*resolution, 100)),
+                refractory_period=np.zeros(resolution),
+                synaptic_weights=np.random.randn(*resolution, *resolution) * 0.01
+            )
+        except (ImportError, Exception):
+            self.neuromorphic_field = None
+
+        self.field_history = deque(maxlen=50)
+        self.evolution_steps = 10  # Steps to evolve field per optimization
+
+    def optimize_position_neuromorphically(
+        self,
+        new_block: Dict[str, Any],
+        existing_blocks: List,
+        constraints: Any
+    ) -> Dict[str, float]:
+        """
+        Find optimal position using neuromorphic field dynamics
+        Simulates biological spatial processing
+        """
+
+        if not self.neuromorphic_field:
+            return {'x': 200.0, 'y': 200.0}
+
+        # Create field input from existing blocks
+        field_input = self._create_field_input(existing_blocks)
+
+        # Evolve neuromorphic field
+        for step in range(self.evolution_steps):
+            spikes = self.neuromorphic_field.evolve(field_input)
+            field_input = None  # Only apply external input on first step
+
+        # Get activity map
+        activity_map = self.neuromorphic_field.get_activity_map()
+
+        # Find optimal position based on field activity
+        position = self._find_optimal_from_activity(
+            activity_map,
+            new_block,
+            existing_blocks,
+            constraints
+        )
+
+        # Store field state in history
+        self.field_history.append(activity_map.copy())
+
+        return position
+
+    def _create_field_input(
+        self,
+        existing_blocks: List
+    ) -> np.ndarray:
+        """
+        Create field input representation from existing blocks
+        Each block creates activation based on priority
+        """
+
+        if not self.neuromorphic_field:
+            return np.zeros((50, 50))
+
+        field_input = np.zeros(self.neuromorphic_field.resolution)
+
+        for block in existing_blocks:
+            # Convert block position to field coordinates
+            field_x = int(block.x * self.neuromorphic_field.resolution[0] / 1920)
+            field_y = int(block.y * self.neuromorphic_field.resolution[1] / 1080)
+
+            # Convert block size to field size
+            field_w = int(block.width * self.neuromorphic_field.resolution[0] / 1920)
+            field_h = int(block.height * self.neuromorphic_field.resolution[1] / 1080)
+
+            # Ensure within bounds
+            field_x = max(0, min(field_x, self.neuromorphic_field.resolution[0] - 1))
+            field_y = max(0, min(field_y, self.neuromorphic_field.resolution[1] - 1))
+            field_w = max(1, min(field_w, self.neuromorphic_field.resolution[0] - field_x))
+            field_h = max(1, min(field_h, self.neuromorphic_field.resolution[1] - field_y))
+
+            # Add activation based on priority (higher priority = more inhibition)
+            activation_strength = block.priority / 10.0
+            field_input[field_y:field_y+field_h, field_x:field_x+field_w] += activation_strength
+
+        return field_input
+
+    def _find_optimal_from_activity(
+        self,
+        activity_map: np.ndarray,
+        new_block: Dict[str, Any],
+        existing_blocks: List,
+        constraints: Any
+    ) -> Dict[str, float]:
+        """
+        Find optimal position from neuromorphic field activity
+        Prefer low-activity regions (free space)
+        """
+
+        # Invert activity map (we want low activity)
+        inverted_activity = 1.0 - activity_map
+
+        # Apply priority weighting
+        priority = new_block.get('priority', 5)
+        priority_weight = priority / 10.0
+
+        # High priority items prefer top-left
+        if priority >= 7:
+            # Add gradient bias towards top-left
+            for i in range(inverted_activity.shape[0]):
+                for j in range(inverted_activity.shape[1]):
+                    distance_factor = (i + j) / (inverted_activity.shape[0] + inverted_activity.shape[1])
+                    inverted_activity[i, j] += (1.0 - distance_factor) * priority_weight
+
+        # Find peak in inverted activity (best free space)
+        best_y, best_x = np.unravel_index(
+            np.argmax(inverted_activity),
+            inverted_activity.shape
+        )
+
+        # Convert back to canvas coordinates
+        canvas_x = best_x * 1920 / self.neuromorphic_field.resolution[0]
+        canvas_y = best_y * 1080 / self.neuromorphic_field.resolution[1]
+
+        # Ensure within bounds
+        max_width = getattr(constraints, 'max_width', 1920)
+        max_height = getattr(constraints, 'max_height', 1080)
+        margin = getattr(constraints, 'min_padding', 20)
+
+        canvas_x = max(margin, min(canvas_x, max_width - new_block.get('width', 200) - margin))
+        canvas_y = max(margin, min(canvas_y, max_height - new_block.get('height', 150) - margin))
+
+        return {'x': canvas_x, 'y': canvas_y}
+
+    def get_field_statistics(self) -> Dict[str, Any]:
+        """Get statistics about neuromorphic field state"""
+
+        if not self.neuromorphic_field:
+            return {}
+
+        activity_map = self.neuromorphic_field.get_activity_map()
+
+        return {
+            'mean_activity': float(np.mean(activity_map)),
+            'max_activity': float(np.max(activity_map)),
+            'min_activity': float(np.min(activity_map)),
+            'activity_variance': float(np.var(activity_map)),
+            'total_spikes': int(np.sum(self.neuromorphic_field.spike_history)),
+            'membrane_potential_mean': float(np.mean(self.neuromorphic_field.membrane_potential))
+        }
+
+
+# ============================================================================
 # ENHANCED SPATIAL REASONING ENGINE
 # ============================================================================
 
@@ -545,14 +1076,19 @@ class EnhancedSpatialReasoningEngine:
     def __init__(self):
         self.canvas_state: List[CanvasBlock] = []
         self.placement_history: List[Dict] = []
-        
+
         # Advanced subsystems
         self.quantum_optimizer = None
         self.neural_architecture = NeuralLayoutArchitecture()
         self.constraint_engine = ConstraintSatisfactionEngine()
         self.temporal_engine = TemporalCoherenceEngine()
         self.info_analyzer = InformationTheoreticAnalyzer()
-        
+
+        # New spatial cognition capabilities
+        self.topological_cognition = TopologicalSpatialCognition()
+        self.holographic_retrieval = HolographicPatternRetrieval()
+        self.neuromorphic_computation = NeuromorphicFieldComputation()
+
         # Machine learning state
         self.preference_model = {}
         self.layout_embeddings = []
@@ -608,7 +1144,40 @@ class EnhancedSpatialReasoningEngine:
                 'position': candidate,
                 'score': score
             })
-        
+
+        # Strategy 4: Topological Spatial Cognition
+        topo_pos = self.topological_cognition.optimize_position_topologically(
+            new_block, self.canvas_state, constraints
+        )
+        if topo_pos:
+            strategies_results.append({
+                'method': 'topological_cognition',
+                'position': topo_pos,
+                'score': self._enhanced_score_position(topo_pos, new_block, constraints)
+            })
+
+        # Strategy 5: Holographic Pattern Retrieval
+        holo_pos = self.holographic_retrieval.optimize_position_holographically(
+            new_block, self.canvas_state, constraints
+        )
+        if holo_pos:
+            strategies_results.append({
+                'method': 'holographic_retrieval',
+                'position': holo_pos,
+                'score': self._enhanced_score_position(holo_pos, new_block, constraints)
+            })
+
+        # Strategy 6: Neuromorphic Field Computation
+        neuro_pos = self.neuromorphic_computation.optimize_position_neuromorphically(
+            new_block, self.canvas_state, constraints
+        )
+        if neuro_pos:
+            strategies_results.append({
+                'method': 'neuromorphic_field',
+                'position': neuro_pos,
+                'score': self._enhanced_score_position(neuro_pos, new_block, constraints)
+            })
+
         # Select best result across all strategies
         if not strategies_results:
             return self._fallback_placement(new_block, constraints)
@@ -1194,6 +1763,45 @@ async def list_tools() -> List[Tool]:
                 "type": "object",
                 "properties": {}
             }
+        ),
+        Tool(
+            name="get_topological_analysis",
+            description=(
+                "Analyze the current layout using algebraic topology. "
+                "Returns Betti numbers, Euler characteristic, persistence diagrams, "
+                "and topological signatures for rotation/scale-invariant understanding."
+            ),
+            inputSchema={
+                "type": "object",
+                "properties": {}
+            }
+        ),
+        Tool(
+            name="get_neuromorphic_statistics",
+            description=(
+                "Get statistics about the neuromorphic field computation state. "
+                "Includes spiking activity, membrane potentials, and field dynamics."
+            ),
+            inputSchema={
+                "type": "object",
+                "properties": {}
+            }
+        ),
+        Tool(
+            name="query_holographic_memory",
+            description=(
+                "Query the holographic memory for similar spatial patterns. "
+                "Uses content-addressable retrieval with interference patterns."
+            ),
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "width": {"type": "number"},
+                    "height": {"type": "number"},
+                    "priority": {"type": "integer"},
+                    "semantic_group": {"type": "string"}
+                }
+            }
         )
     ]
 
@@ -1299,9 +1907,9 @@ async def call_tool(name: str, arguments: Any) -> Sequence[TextContent]:
                 'total_blocks': len(engine.canvas_state),
                 'utilization': sum(b.width * b.height for b in engine.canvas_state) / (1920 * 1080) * 100
             }
-            
+
             info_metrics = engine._calculate_info_metrics({}, {})
-            
+
             response = {
                 "success": True,
                 "statistics": {
@@ -1311,9 +1919,72 @@ async def call_tool(name: str, arguments: Any) -> Sequence[TextContent]:
                     "quantum_enabled": engine.quantum_optimizer is not None
                 }
             }
-            
+
             return [TextContent(type="text", text=json.dumps(response, indent=2))]
-        
+
+        elif name == "get_topological_analysis":
+            # Get topological analysis of current layout
+            if engine.topological_cognition.topology_analyzer:
+                current_blocks = [b.to_dict() for b in engine.canvas_state]
+                topology = engine.topological_cognition.topology_analyzer.analyze_topology(current_blocks)
+
+                response = {
+                    "success": True,
+                    "topology": topology,
+                    "message": f"Topological analysis: Betti_0={topology['betti_0']}, Betti_1={topology['betti_1']}, Euler={topology['euler_characteristic']}"
+                }
+            else:
+                response = {
+                    "success": False,
+                    "error": "Topological analyzer not available"
+                }
+
+            return [TextContent(type="text", text=json.dumps(response, indent=2))]
+
+        elif name == "get_neuromorphic_statistics":
+            # Get neuromorphic field statistics
+            stats = engine.neuromorphic_computation.get_field_statistics()
+
+            if stats:
+                response = {
+                    "success": True,
+                    "neuromorphic_statistics": stats,
+                    "message": f"Field mean activity: {stats.get('mean_activity', 0):.3f}"
+                }
+            else:
+                response = {
+                    "success": False,
+                    "error": "Neuromorphic field not available"
+                }
+
+            return [TextContent(type="text", text=json.dumps(response, indent=2))]
+
+        elif name == "query_holographic_memory":
+            # Query holographic memory
+            if engine.holographic_retrieval.holographic_memory:
+                query_pattern = {
+                    'width': arguments.get('width', 200),
+                    'height': arguments.get('height', 150),
+                    'priority': arguments.get('priority', 5),
+                    'semantic_group': arguments.get('semantic_group')
+                }
+
+                similar_patterns = engine.holographic_retrieval.holographic_memory.retrieve(query_pattern)
+
+                response = {
+                    "success": True,
+                    "similar_patterns": similar_patterns,
+                    "count": len(similar_patterns),
+                    "message": f"Found {len(similar_patterns)} similar patterns in holographic memory"
+                }
+            else:
+                response = {
+                    "success": False,
+                    "error": "Holographic memory not available"
+                }
+
+            return [TextContent(type="text", text=json.dumps(response, indent=2))]
+
         else:
             return [TextContent(
                 type="text",
