@@ -1,0 +1,73 @@
+{
+  "test_date": "2025-11-13 13:02:37",
+  "summary": {
+    "configurations_explored": {
+      "classical": 0,
+      "quantum": 0,
+      "improvement": "N/A"
+    },
+    "memory_complexity": {
+      "classical": "O(n\u00b2) - 0 bytes for n=200",
+      "quantum": "O(1) - 0 bytes (constant)"
+    },
+    "pattern_recognition": {
+      "classical": "local",
+      "quantum": "global+topological"
+    },
+    "temporal_awareness": {
+      "classical": "None (horizon: 0)",
+      "quantum": "Predictive (horizon: 5 frames)"
+    },
+    "learning_capability": {
+      "classical": "Static (none)",
+      "quantum": "Adaptive (Adaptive_Preference_Learning+STDP)"
+    }
+  },
+  "detailed_metrics": {
+    "configurations_explored": {
+      "classical": 0,
+      "quantum": 0
+    },
+    "memory_complexity": {
+      "classical": 0,
+      "quantum": 0
+    },
+    "pattern_recognition": {
+      "classical": {
+        "scope": "local",
+        "patterns_found": 8
+      },
+      "quantum": {
+        "scope": "global+topological",
+        "betti_0": 6,
+        "betti_1": 1,
+        "euler_characteristic": 5
+      }
+    },
+    "temporal_awareness": {
+      "classical": {
+        "has_model": false,
+        "horizon": 0
+      },
+      "quantum": {
+        "has_model": true,
+        "horizon": 5,
+        "keyframes": 5,
+        "motion_path_points": 30
+      }
+    },
+    "learning_capability": {
+      "classical": {
+        "adaptive": false,
+        "algorithm": "none"
+      },
+      "quantum": {
+        "adaptive": true,
+        "algorithm": "Adaptive_Preference_Learning+STDP",
+        "plasticity": 0.1,
+        "learning_steps": 10,
+        "learned_preferences": 5
+      }
+    }
+  }
+}
