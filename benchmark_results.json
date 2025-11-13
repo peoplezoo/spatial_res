@@ -1,0 +1,159 @@
+{
+  "strategies": {},
+  "performance": {},
+  "quality": {},
+  "scalability": {
+    "5": {
+      "placement_time_ms": 520.564079284668,
+      "strategies_evaluated": 4,
+      "method_used": "topological_cognition",
+      "confidence": 0.9753055404881568
+    },
+    "10": {
+      "placement_time_ms": 478.4972667694092,
+      "strategies_evaluated": 4,
+      "method_used": "neuromorphic_field",
+      "confidence": 0.9756722479768268
+    },
+    "20": {
+      "placement_time_ms": 522.2740173339844,
+      "strategies_evaluated": 4,
+      "method_used": "topological_cognition",
+      "confidence": 0.9762813968223387
+    },
+    "50": {
+      "placement_time_ms": 675.689697265625,
+      "strategies_evaluated": 4,
+      "method_used": "topological_cognition",
+      "confidence": 0.9780596382819479
+    }
+  },
+  "individual": {
+    "topological": {
+      "time_ms": 60.567259788513184,
+      "position": {
+        "x": 20.0,
+        "y": 120.0
+      }
+    },
+    "holographic": {
+      "time_ms": 0.9668350219726562,
+      "position": {
+        "x": 393.99551066217737,
+        "y": 131.50252525252523
+      }
+    },
+    "neuromorphic": {
+      "time_ms": 803.727650642395,
+      "position": {
+        "x": 1650.0,
+        "y": 880.0
+      }
+    }
+  },
+  "memory": {
+    "100": {
+      "store_time": 0.11125969886779785,
+      "retrieve_time_ms": 3.812551498413086,
+      "patterns_found": 5
+    },
+    "500": {
+      "store_time": 0.5469367504119873,
+      "retrieve_time_ms": 9.810686111450195,
+      "patterns_found": 5
+    },
+    "1000": {
+      "store_time": 1.0349907875061035,
+      "retrieve_time_ms": 19.938230514526367,
+      "patterns_found": 5
+    }
+  },
+  "topology": {
+    "5": {
+      "analysis_time_ms": 0.7631778717041016,
+      "betti_0": 5,
+      "betti_1": 0,
+      "euler": 5
+    },
+    "10": {
+      "analysis_time_ms": 0.8754730224609375,
+      "betti_0": 10,
+      "betti_1": 0,
+      "euler": 10
+    },
+    "20": {
+      "analysis_time_ms": 1.283407211303711,
+      "betti_0": 20,
+      "betti_1": 2,
+      "euler": 18
+    },
+    "50": {
+      "analysis_time_ms": 3.0400753021240234,
+      "betti_0": 50,
+      "betti_1": 15,
+      "euler": 35
+    }
+  },
+  "neuromorphic": {
+    "5": {
+      "time_ms": 211.44866943359375,
+      "position": {
+        "x": 384.0,
+        "y": 20.0
+      },
+      "stats": {
+        "mean_activity": 0.11448175267124136,
+        "max_activity": 1.0,
+        "min_activity": 0.0,
+        "activity_variance": 0.06462547712890604,
+        "total_spikes": 30,
+        "membrane_potential_mean": 0.07361013718539257
+      }
+    },
+    "10": {
+      "time_ms": 474.46322441101074,
+      "position": {
+        "x": 20.0,
+        "y": 910.0
+      },
+      "stats": {
+        "mean_activity": 0.3031408406753587,
+        "max_activity": 1.0,
+        "min_activity": 0.0,
+        "activity_variance": 0.10237580411909501,
+        "total_spikes": 506,
+        "membrane_potential_mean": 0.20757685492546252
+      }
+    },
+    "20": {
+      "time_ms": 1514.1088962554932,
+      "position": {
+        "x": 20.0,
+        "y": 910.0
+      },
+      "stats": {
+        "mean_activity": 0.4846944615508799,
+        "max_activity": 1.0,
+        "min_activity": 0.0,
+        "activity_variance": 0.11597137036372665,
+        "total_spikes": 4645,
+        "membrane_potential_mean": 0.35707066835911366
+      }
+    },
+    "50": {
+      "time_ms": 4720.093727111816,
+      "position": {
+        "x": 1190.4,
+        "y": 910.0
+      },
+      "stats": {
+        "mean_activity": 0.5895681062406093,
+        "max_activity": 1.0,
+        "min_activity": 0.0,
+        "activity_variance": 0.08310576409962502,
+        "total_spikes": 19750,
+        "membrane_potential_mean": 0.4393394127395648
+      }
+    }
+  }
+}
