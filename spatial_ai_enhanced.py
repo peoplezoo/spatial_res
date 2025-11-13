@@ -1418,9 +1418,9 @@ class EnhancedSpatialReasoningEngine:
                     (block_center[1] - domain_center_y)**2
                 )
 
-                # ULTRA-STRONG graduated domain bonus: dominates all other factors
-                # This creates an overwhelming "gravity well" toward the semantic group's spatial region
-                # At domain center: +100000, at 100px: +50000, at 200px: +33333, at 300px: +25000
+                # INVERSE domain attraction: balanced gradient toward domain center
+                # Provides strong but not excessive pull toward semantic region
+                # At center: +100000, at 100px: +9091, at 200px: +4762, at 300px: +3226
                 domain_bonus = 1000000 / (dist_to_center + 10)
                 metrics['total'] += domain_bonus
                 metrics['domain_bonus'] = domain_bonus
@@ -1450,6 +1450,44 @@ class EnhancedSpatialReasoningEngine:
                 semantic_bonus = 50000 / (avg_dist + 10)
                 metrics['total'] += semantic_bonus
                 metrics['semantic_bonus'] = semantic_bonus
+
+        # "NO MAN'S LAND" PENALTY: Penalize positions between semantic domains
+        # This increases separation by making boundary regions unattractive
+        if semantic_group and self.canvas_state:
+            # Get all semantic groups present
+            all_groups = set(b.semantic_group for b in self.canvas_state
+                           if hasattr(b, 'semantic_group') and b.semantic_group)
+
+            if len(all_groups) > 1:
+                block_center = (test_block['x'] + test_block.get('width', 200)/2,
+                               test_block['y'] + test_block.get('height', 150)/2)
+
+                # Calculate distances to each group's centroid
+                group_distances = {}
+                for group in all_groups:
+                    group_blocks = [b for b in self.canvas_state
+                                  if hasattr(b, 'semantic_group') and b.semantic_group == group]
+                    if group_blocks:
+                        centroid_x = sum(b.x + b.width/2 for b in group_blocks) / len(group_blocks)
+                        centroid_y = sum(b.y + b.height/2 for b in group_blocks) / len(group_blocks)
+                        dist = np.sqrt((block_center[0] - centroid_x)**2 +
+                                     (block_center[1] - centroid_y)**2)
+                        group_distances[group] = dist
+
+                # If block is roughly equidistant from multiple groups, it's in "no man's land"
+                if len(group_distances) >= 2:
+                    sorted_dists = sorted(group_distances.values())
+                    closest = sorted_dists[0]
+                    second_closest = sorted_dists[1]
+
+                    # If within 50% distance difference, heavily penalize
+                    # Stricter boundary detection to force clear spatial separation
+                    if second_closest < closest * 1.5:
+                        # Scale penalty by ambiguity: more ambiguous = larger penalty
+                        ambiguity_ratio = second_closest / closest
+                        ambiguity_penalty = -20000 * (1.5 - ambiguity_ratio)  # Up to -20000
+                        metrics['total'] += ambiguity_penalty
+                        metrics['no_mans_land_penalty'] = ambiguity_penalty
 
         return metrics
     
@@ -1782,9 +1820,10 @@ class EnhancedSpatialReasoningEngine:
         best_pos = None
         best_score = -float('inf')
 
-        # Search in 10px increments in a tight radius for maximum clustering
-        for dx in range(-150, 151, 10):
-            for dy in range(-150, 151, 10):
+        # Search in wide area to find nearest non-overlapping position
+        # 300px radius with 10px steps for efficiency (blocks are 250px wide)
+        for dx in range(-300, 301, 10):
+            for dy in range(-300, 301, 10):
                 x = domain_center_x + dx - new_block.get('width', 200) / 2
                 y = domain_center_y + dy - new_block.get('height', 150) / 2
 
@@ -1792,9 +1831,20 @@ class EnhancedSpatialReasoningEngine:
                 if (constraints.min_padding <= x <= constraints.max_width - new_block.get('width', 200) - constraints.min_padding and
                     constraints.min_padding <= y <= constraints.max_height - new_block.get('height', 150) - constraints.min_padding):
 
-                    # Check no overlap
+                    # Check no overlap with proper geometric intersection test
                     test_block = {**new_block, 'x': x, 'y': y}
-                    if self._calculate_overlap_penalty(test_block) > 50:  # No major overlaps
+                    has_overlap = False
+
+                    for existing in self.canvas_state:
+                        # Check rectangle intersection
+                        if not (x + new_block.get('width', 200) <= existing.x or
+                                x >= existing.x + existing.width or
+                                y + new_block.get('height', 150) <= existing.y or
+                                y >= existing.y + existing.height):
+                            has_overlap = True
+                            break
+
+                    if not has_overlap:
                         pos = {'x': x, 'y': y}
                         score = self._enhanced_score_position(pos, new_block, constraints)
 
@@ -1819,9 +1869,9 @@ class EnhancedSpatialReasoningEngine:
         min_x, max_x = min(xs), max(xs)
         min_y, max_y = min(ys), max(ys)
 
-        # Add generous margin (200px) to allow some flexibility
-        # But still constrain to semantic region
-        margin = 200
+        # Add TIGHT margin (75px) to force strong spatial clustering
+        # Reduced from 200px to create more distinct semantic regions
+        margin = 75
 
         return {
             'x_min': max(0, min_x - margin),
