@@ -1,0 +1,404 @@
+{
+  "scale_invariance": {
+    "score": 75.64437967056612,
+    "details": {
+      "960x540": {
+        "time_ms": 739.109992980957,
+        "confidence": 0.9743336717855906,
+        "method": "topological_cognition",
+        "strategies": 4
+      },
+      "1920x1080": {
+        "time_ms": 504.53972816467285,
+        "confidence": 0.9751640019794959,
+        "method": "neuromorphic_field",
+        "strategies": 4
+      },
+      "3840x2160": {
+        "time_ms": 598.2692241668701,
+        "confidence": 0.9754609265340446,
+        "method": "neuromorphic_field",
+        "strategies": 4
+      },
+      "7680x4320": {
+        "time_ms": 1546.1368560791016,
+        "confidence": 0.9755592363405942,
+        "method": "neuromorphic_field",
+        "strategies": 4
+      }
+    }
+  },
+  "density_resilience": {
+    "score": 62.67724713798292,
+    "details": {
+      "density_5": {
+        "blocks": 5,
+        "time_ms": 423.6290454864502,
+        "confidence": 0.9749677367760087,
+        "overlaps": 2,
+        "method": "holographic_retrieval"
+      },
+      "density_10": {
+        "blocks": 10,
+        "time_ms": 476.6995906829834,
+        "confidence": 0.97526143281948,
+        "overlaps": 2,
+        "method": "holographic_retrieval"
+      },
+      "density_25": {
+        "blocks": 25,
+        "time_ms": 554.4140338897705,
+        "confidence": 0.9764881992955665,
+        "overlaps": 1,
+        "method": "topological_cognition"
+      },
+      "density_50": {
+        "blocks": 50,
+        "time_ms": 677.7071952819824,
+        "confidence": 0.978262968560678,
+        "overlaps": 1,
+        "method": "topological_cognition"
+      },
+      "density_100": {
+        "blocks": 100,
+        "time_ms": 1002.0437240600586,
+        "confidence": 0.9788820194474124,
+        "overlaps": 1,
+        "method": "topological_cognition"
+      }
+    }
+  },
+  "topological_complexity": {
+    "score": 74.0,
+    "details": {
+      "linear": {
+        "time_ms": 475.62694549560547,
+        "betti_0_before": 8,
+        "betti_0_after": 9,
+        "betti_1_before": 0,
+        "betti_1_after": 5,
+        "euler_before": 8,
+        "euler_after": 4,
+        "preservation_score": 40,
+        "method": "neuromorphic_field"
+      },
+      "grid": {
+        "time_ms": 668.1065559387207,
+        "betti_0_before": 12,
+        "betti_0_after": 12,
+        "betti_1_before": 13,
+        "betti_1_after": 13,
+        "euler_before": -1,
+        "euler_after": -1,
+        "preservation_score": 100,
+        "method": "topological_cognition"
+      },
+      "circular": {
+        "time_ms": 466.1750793457031,
+        "betti_0_before": 8,
+        "betti_0_after": 9,
+        "betti_1_before": 7,
+        "betti_1_after": 10,
+        "euler_before": 1,
+        "euler_after": -1,
+        "preservation_score": 60,
+        "method": "holographic_retrieval"
+      },
+      "hierarchical": {
+        "time_ms": 491.41883850097656,
+        "betti_0_before": 10,
+        "betti_0_after": 11,
+        "betti_1_before": 7,
+        "betti_1_after": 9,
+        "euler_before": 3,
+        "euler_after": 2,
+        "preservation_score": 70,
+        "method": "holographic_retrieval"
+      },
+      "random": {
+        "time_ms": 476.7024517059326,
+        "betti_0_before": 8,
+        "betti_0_after": 8,
+        "betti_1_before": 9,
+        "betti_1_after": 9,
+        "euler_before": -1,
+        "euler_after": -1,
+        "preservation_score": 100,
+        "method": "holographic_retrieval"
+      }
+    }
+  },
+  "temporal_consistency": {
+    "score": 84.95619580803668,
+    "placements": [
+      {
+        "step": 0,
+        "position": [
+          20.0,
+          20.0
+        ],
+        "method": "topological_cognition",
+        "confidence": 0.9771265688398948
+      },
+      {
+        "step": 1,
+        "position": [
+          20.0,
+          20.0
+        ],
+        "method": "topological_cognition",
+        "confidence": 0.974990619682669
+      },
+      {
+        "step": 2,
+        "position": [
+          270.0,
+          110.0
+        ],
+        "method": "neuromorphic_field",
+        "confidence": 0.9750920199302912
+      },
+      {
+        "step": 3,
+        "position": [
+          120.0,
+          20.0
+        ],
+        "method": "neuromorphic_field",
+        "confidence": 0.9767872109603538
+      },
+      {
+        "step": 4,
+        "position": [
+          40.0,
+          40.0
+        ],
+        "method": "neuromorphic_field",
+        "confidence": 0.9767658282068022
+      },
+      {
+        "step": 5,
+        "position": [
+          20.0,
+          20.0
+        ],
+        "method": "topological_cognition",
+        "confidence": 0.9753490112454806
+      },
+      {
+        "step": 6,
+        "position": [
+          20.0,
+          20.0
+        ],
+        "method": "topological_cognition",
+        "confidence": 0.9752056659997803
+      },
+      {
+        "step": 7,
+        "position": [
+          1200.0,
+          950.0
+        ],
+        "method": "holographic_retrieval",
+        "confidence": 0.9751698029520993
+      },
+      {
+        "step": 8,
+        "position": [
+          320.0,
+          20.0
+        ],
+        "method": "topological_cognition",
+        "confidence": 0.9769504597493803
+      },
+      {
+        "step": 9,
+        "position": [
+          20.0,
+          120.0
+        ],
+        "method": "topological_cognition",
+        "confidence": 0.976846947917016
+      }
+    ],
+    "method_consistency": 70.0,
+    "confidence_stability": 99.91239161607336
+  },
+  "semantic_coherence": {
+    "score": 26.100209815704392,
+    "details": {
+      "header": {
+        "position": [
+          20.0,
+          120.0
+        ],
+        "avg_distance_same_group": 381.0940394629867,
+        "avg_distance_other_groups": 582.2530151996656,
+        "coherence_score": 30.476948345909392,
+        "method": "topological_cognition"
+      },
+      "content": {
+        "position": [
+          20.0,
+          120.0
+        ],
+        "avg_distance_same_group": 440.2910975570846,
+        "avg_distance_other_groups": 552.6544861526166,
+        "coherence_score": 25.047162256932967,
+        "method": "topological_cognition"
+      },
+      "footer": {
+        "position": [
+          1650.0,
+          910.0
+        ],
+        "avg_distance_same_group": 1268.20402773415,
+        "avg_distance_other_groups": 1445.4024727455646,
+        "coherence_score": 22.776518844270818,
+        "method": "neuromorphic_field"
+      }
+    }
+  },
+  "adversarial_robustness": {
+    "score": 100.0,
+    "details": {
+      "empty_canvas": {
+        "success": true,
+        "valid": "True",
+        "time_ms": 437.5336170196533,
+        "position": [
+          20.0,
+          20.0
+        ],
+        "confidence": 0.9770022250985297,
+        "method": "topological_cognition"
+      },
+      "single_block": {
+        "success": true,
+        "valid": "True",
+        "time_ms": 435.59861183166504,
+        "position": [
+          20.0,
+          20.0
+        ],
+        "confidence": 0.9752249852234063,
+        "method": "topological_cognition"
+      },
+      "extreme_density": {
+        "success": true,
+        "valid": "True",
+        "time_ms": 931.8506717681885,
+        "position": [
+          100.0,
+          100.0
+        ],
+        "confidence": 0.9792954636614617,
+        "method": "holographic_retrieval"
+      },
+      "mismatched_sizes": {
+        "success": true,
+        "valid": "True",
+        "time_ms": 554.0599822998047,
+        "position": [
+          20.0,
+          620.0
+        ],
+        "confidence": 0.9773311827829324,
+        "method": "topological_cognition"
+      },
+      "corner_placement": {
+        "success": true,
+        "valid": "True",
+        "time_ms": 467.6635265350342,
+        "position": [
+          100.0,
+          100.0
+        ],
+        "confidence": 0.9755971003092025,
+        "method": "holographic_retrieval"
+      }
+    }
+  },
+  "multi_objective": {
+    "score": 40.0,
+    "details": {
+      "high_priority_dense": {
+        "objectives_met": 2,
+        "total_objectives": 5,
+        "balance_score": 40.0,
+        "confidence": 0.9804062884569363,
+        "method": "topological_cognition",
+        "metrics": {
+          "overlap_penalty": 100.0,
+          "aesthetic_score": 50.0,
+          "proximity_score": 50.0,
+          "balance_score": 50.0,
+          "flow_score": 100,
+          "whitespace_quality": 85.11278195488721,
+          "tension_score": 10.776992702032432,
+          "hierarchy_score": 91.66666666666666,
+          "total": 78.44691730263008,
+          "spatial_entropy": 3.875,
+          "complexity_score": 4.9099494171397495,
+          "position_priority_mi": 0.8294340029249652,
+          "computation_time_ms": 603.5332679748535
+        }
+      },
+      "low_priority_sparse": {
+        "objectives_met": 2,
+        "total_objectives": 5,
+        "balance_score": 40.0,
+        "confidence": 0.9787157374365532,
+        "method": "neuromorphic_field",
+        "metrics": {
+          "overlap_penalty": 100.0,
+          "aesthetic_score": 50.0,
+          "proximity_score": 50.0,
+          "balance_score": 50.0,
+          "flow_score": 100,
+          "whitespace_quality": 87.24310776942356,
+          "tension_score": 0.8711527516049924,
+          "hierarchy_score": 66.2962962962963,
+          "total": 76.58731118020837,
+          "spatial_entropy": 4.0,
+          "complexity_score": 5.006422798909624,
+          "position_priority_mi": 1.026011942157881,
+          "computation_time_ms": 881.3927173614502
+        }
+      },
+      "medium_priority_mixed": {
+        "objectives_met": 2,
+        "total_objectives": 5,
+        "balance_score": 40.0,
+        "confidence": 0.9786200591764654,
+        "method": "topological_cognition",
+        "metrics": {
+          "overlap_penalty": 100.0,
+          "aesthetic_score": 50.0,
+          "proximity_score": 50.0,
+          "balance_score": 50.0,
+          "flow_score": 100,
+          "whitespace_quality": 85.11278195488721,
+          "tension_score": 5.6743943732830235,
+          "hierarchy_score": 64.28571428571429,
+          "total": 76.48206509411187,
+          "spatial_entropy": 3.875,
+          "complexity_score": 4.933295276474184,
+          "position_priority_mi": 0.9072535340397483,
+          "computation_time_ms": 1020.9834575653076
+        }
+      }
+    }
+  },
+  "overall_score": 66.95889507444168,
+  "dimension_scores": {
+    "scale_invariance": 75.64437967056612,
+    "density_resilience": 62.67724713798292,
+    "topological_complexity": 74.0,
+    "temporal_consistency": 84.95619580803668,
+    "semantic_coherence": 26.100209815704392,
+    "adversarial_robustness": 100.0,
+    "multi_objective": 40.0
+  }
+}

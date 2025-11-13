@@ -526,9 +526,10 @@ class TopologicalSpatialCognition:
             return {'x': 100.0, 'y': 100.0}
 
         # Handle edge case: very few blocks
-        if len(existing_blocks) < 2:
+        if len(existing_blocks) < 3:
             # Not enough blocks for meaningful topology - use heuristic
-            return {'x': 100.0, 'y': 100.0}
+            margin = getattr(constraints, 'min_padding', 20)
+            return {'x': float(margin), 'y': float(margin)}
 
         # Analyze current topology
         current_blocks = [b.to_dict() for b in existing_blocks]
