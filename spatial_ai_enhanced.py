@@ -23,6 +23,11 @@ from mcp.server import Server
 from mcp.server.stdio import stdio_server
 from mcp.types import Tool, TextContent
 
+# Import Tetris NSGA-II optimizer
+from tetris_nsga2_placer import (
+    NSGA2TetrisOptimizer, TetrisBlock, TetrisSolution
+)
+
 # ============================================================================
 # QUANTUM-INSPIRED OPTIMIZATION MODULE
 # ============================================================================
@@ -1273,11 +1278,26 @@ class EnhancedSpatialReasoningEngine:
                 'score': self._enhanced_score_position(domain_pos, new_block, constraints)
             })
 
+        # Strategy 8: TETRIS + NSGA-II Multi-Objective Optimization
+        # Physics-based placement with zero-overlap guarantee
+        tetris_pos = self._tetris_nsga2_placement(new_block, constraints)
+        if tetris_pos:
+            strategies_results.append({
+                'method': 'tetris_nsga2',
+                'position': tetris_pos,
+                'score': self._enhanced_score_position(tetris_pos, new_block, constraints)
+            })
+
         # Select best result across all strategies
         if not strategies_results:
             return self._fallback_placement(new_block, constraints)
-        
-        best_result = max(strategies_results, key=lambda x: x['score']['total'])
+
+        # PRIORITY: Prefer Tetris NSGA-II if it succeeded (guaranteed zero overlaps)
+        tetris_results = [r for r in strategies_results if r['method'] == 'tetris_nsga2']
+        if tetris_results:
+            best_result = tetris_results[0]  # Tetris guarantees zero overlaps
+        else:
+            best_result = max(strategies_results, key=lambda x: x['score']['total'])
         
         # Calculate information-theoretic metrics
         info_metrics = self._calculate_info_metrics(new_block, best_result['position'])
@@ -1853,6 +1873,73 @@ class EnhancedSpatialReasoningEngine:
                             best_pos = pos
 
         return best_pos
+
+    def _tetris_nsga2_placement(self, new_block: Dict, constraints: PlacementConstraints) -> Optional[Dict[str, float]]:
+        """
+        Use Tetris + NSGA-II for zero-overlap multi-objective placement.
+        This is the SOTA strategy that guarantees no overlaps.
+        """
+        try:
+            # Convert new_block to TetrisBlock
+            tetris_block = TetrisBlock(
+                id=new_block.get('id', 'new'),
+                width=new_block.get('width', 200),
+                height=new_block.get('height', 150),
+                semantic_group=new_block.get('semantic_group'),
+                priority=new_block.get('priority', 5)
+            )
+
+            # Convert existing canvas blocks to TetrisBlocks
+            existing_tetris = []
+            for b in self.canvas_state:
+                existing_tetris.append(TetrisBlock(
+                    id=b.id,
+                    width=b.width,
+                    height=b.height,
+                    x=b.x,
+                    y=b.y,
+                    semantic_group=getattr(b, 'semantic_group', None),
+                    priority=b.priority
+                ))
+
+            # Run NSGA-II optimization (balanced mode for quality)
+            optimizer = NSGA2TetrisOptimizer(
+                canvas_width=constraints.max_width,
+                canvas_height=constraints.max_height,
+                population_size=30,   # Larger population for diversity
+                n_generations=20      # More generations for convergence
+            )
+
+            solution = optimizer.optimize_placement([tetris_block], existing_tetris)
+
+            # Extract position from solution
+            if solution.blocks:
+                placed_block = solution.blocks[0]
+
+                # CRITICAL: Verify zero overlaps before accepting
+                test_pos = {'x': placed_block.x, 'y': placed_block.y}
+                test_block = {**new_block, **test_pos}
+
+                # Check for intersections with existing blocks
+                has_overlap = False
+                for existing in self.canvas_state:
+                    if not (test_pos['x'] + new_block.get('width', 200) <= existing.x or
+                            test_pos['x'] >= existing.x + existing.width or
+                            test_pos['y'] + new_block.get('height', 150) <= existing.y or
+                            test_pos['y'] >= existing.y + existing.height):
+                        has_overlap = True
+                        break
+
+                # Only return if truly zero overlaps
+                if not has_overlap:
+                    return test_pos
+
+        except Exception as e:
+            # Fallback gracefully if Tetris fails
+            print(f"Tetris NSGA-II failed: {e}")
+            return None
+
+        return None
 
     def _detect_semantic_domain(self, blocks: List) -> Dict[str, float]:
         """
