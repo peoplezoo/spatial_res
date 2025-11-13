@@ -1,78 +1,78 @@
 {
   "scale_invariance": {
-    "score": 75.64437967056612,
+    "score": 60.06807078905718,
     "details": {
       "960x540": {
-        "time_ms": 739.109992980957,
-        "confidence": 0.9743336717855906,
-        "method": "topological_cognition",
-        "strategies": 4
+        "time_ms": 820.1000690460205,
+        "confidence": 1.0,
+        "method": "tetris_nsga2",
+        "strategies": 5
       },
       "1920x1080": {
-        "time_ms": 504.53972816467285,
-        "confidence": 0.9751640019794959,
-        "method": "neuromorphic_field",
-        "strategies": 4
+        "time_ms": 640.4693126678467,
+        "confidence": 1.0,
+        "method": "tetris_nsga2",
+        "strategies": 5
       },
       "3840x2160": {
-        "time_ms": 598.2692241668701,
-        "confidence": 0.9754609265340446,
-        "method": "neuromorphic_field",
-        "strategies": 4
+        "time_ms": 861.4277839660645,
+        "confidence": 1.0,
+        "method": "tetris_nsga2",
+        "strategies": 5
       },
       "7680x4320": {
-        "time_ms": 1546.1368560791016,
-        "confidence": 0.9755592363405942,
-        "method": "neuromorphic_field",
-        "strategies": 4
+        "time_ms": 3410.0351333618164,
+        "confidence": 1.0,
+        "method": "tetris_nsga2",
+        "strategies": 5
       }
     }
   },
   "density_resilience": {
-    "score": 62.67724713798292,
+    "score": 94.0909090909091,
     "details": {
       "density_5": {
         "blocks": 5,
-        "time_ms": 423.6290454864502,
-        "confidence": 0.9749677367760087,
-        "overlaps": 2,
-        "method": "holographic_retrieval"
+        "time_ms": 711.5020751953125,
+        "confidence": 1.0,
+        "overlaps": 0,
+        "method": "tetris_nsga2"
       },
       "density_10": {
         "blocks": 10,
-        "time_ms": 476.6995906829834,
-        "confidence": 0.97526143281948,
-        "overlaps": 2,
-        "method": "holographic_retrieval"
+        "time_ms": 829.7224044799805,
+        "confidence": 1.0,
+        "overlaps": 0,
+        "method": "tetris_nsga2"
       },
       "density_25": {
         "blocks": 25,
-        "time_ms": 554.4140338897705,
-        "confidence": 0.9764881992955665,
-        "overlaps": 1,
-        "method": "topological_cognition"
+        "time_ms": 1211.8148803710938,
+        "confidence": 1.0,
+        "overlaps": 0,
+        "method": "tetris_nsga2"
       },
       "density_50": {
         "blocks": 50,
-        "time_ms": 677.7071952819824,
-        "confidence": 0.978262968560678,
-        "overlaps": 1,
-        "method": "topological_cognition"
+        "time_ms": 2550.1773357391357,
+        "confidence": 1.0,
+        "overlaps": 0,
+        "method": "tetris_nsga2"
       },
       "density_100": {
         "blocks": 100,
-        "time_ms": 1002.0437240600586,
-        "confidence": 0.9788820194474124,
+        "time_ms": 24421.62537574768,
+        "confidence": 0.9545454545454546,
         "overlaps": 1,
-        "method": "topological_cognition"
+        "method": "constraint_satisfaction"
       }
     }
   },
   "topological_complexity": {
-    "score": 74.0,
+    "score": 70.0,
     "details": {
       "linear": {
-        "time_ms": 475.62694549560547,
+        "time_ms": 700.6206512451172,
         "betti_0_before": 8,
         "betti_0_after": 9,
         "betti_1_before": 0,
@@ -83,7 +83,7 @@
         "method": "neuromorphic_field"
       },
       "grid": {
-        "time_ms": 668.1065559387207,
+        "time_ms": 919.6326732635498,
         "betti_0_before": 12,
         "betti_0_after": 12,
         "betti_1_before": 13,
@@ -94,18 +94,18 @@
         "method": "topological_cognition"
       },
       "circular": {
-        "time_ms": 466.1750793457031,
+        "time_ms": 562.175989151001,
         "betti_0_before": 8,
         "betti_0_after": 9,
         "betti_1_before": 7,
-        "betti_1_after": 10,
+        "betti_1_after": 9,
         "euler_before": 1,
-        "euler_after": -1,
-        "preservation_score": 60,
-        "method": "holographic_retrieval"
+        "euler_after": 0,
+        "preservation_score": 70,
+        "method": "tetris_nsga2"
       },
       "hierarchical": {
-        "time_ms": 491.41883850097656,
+        "time_ms": 719.2342281341553,
         "betti_0_before": 10,
         "betti_0_after": 11,
         "betti_1_before": 7,
@@ -116,207 +116,207 @@
         "method": "holographic_retrieval"
       },
       "random": {
-        "time_ms": 476.7024517059326,
+        "time_ms": 570.7542896270752,
         "betti_0_before": 8,
-        "betti_0_after": 8,
+        "betti_0_after": 9,
         "betti_1_before": 9,
         "betti_1_after": 9,
         "euler_before": -1,
-        "euler_after": -1,
-        "preservation_score": 100,
-        "method": "holographic_retrieval"
+        "euler_after": 0,
+        "preservation_score": 70,
+        "method": "tetris_nsga2"
       }
     }
   },
   "temporal_consistency": {
-    "score": 84.95619580803668,
+    "score": 95.0,
     "placements": [
       {
         "step": 0,
         "position": [
-          20.0,
-          20.0
+          960.0,
+          880.0
         ],
-        "method": "topological_cognition",
-        "confidence": 0.9771265688398948
+        "method": "tetris_nsga2",
+        "confidence": 1.0
       },
       {
         "step": 1,
         "position": [
-          20.0,
-          20.0
+          1010.0,
+          680.0
         ],
-        "method": "topological_cognition",
-        "confidence": 0.974990619682669
+        "method": "tetris_nsga2",
+        "confidence": 1.0
       },
       {
         "step": 2,
         "position": [
-          270.0,
-          110.0
+          920.0,
+          480.0
         ],
-        "method": "neuromorphic_field",
-        "confidence": 0.9750920199302912
+        "method": "tetris_nsga2",
+        "confidence": 1.0
       },
       {
         "step": 3,
         "position": [
-          120.0,
-          20.0
+          1010.0,
+          280.0
         ],
-        "method": "neuromorphic_field",
-        "confidence": 0.9767872109603538
+        "method": "tetris_nsga2",
+        "confidence": 1.0
       },
       {
         "step": 4,
         "position": [
-          40.0,
-          40.0
+          810.0,
+          330.0
         ],
-        "method": "neuromorphic_field",
-        "confidence": 0.9767658282068022
+        "method": "tetris_nsga2",
+        "confidence": 1.0
       },
       {
         "step": 5,
         "position": [
-          20.0,
-          20.0
+          1170.0,
+          880.0
         ],
-        "method": "topological_cognition",
-        "confidence": 0.9753490112454806
+        "method": "tetris_nsga2",
+        "confidence": 1.0
       },
       {
         "step": 6,
         "position": [
-          20.0,
-          20.0
+          820.0,
+          130.0
         ],
-        "method": "topological_cognition",
-        "confidence": 0.9752056659997803
+        "method": "tetris_nsga2",
+        "confidence": 1.0
       },
       {
         "step": 7,
         "position": [
-          1200.0,
-          950.0
+          1240.0,
+          730.0
         ],
-        "method": "holographic_retrieval",
-        "confidence": 0.9751698029520993
+        "method": "tetris_nsga2",
+        "confidence": 1.0
       },
       {
         "step": 8,
         "position": [
-          320.0,
-          20.0
+          700.0,
+          880.0
         ],
-        "method": "topological_cognition",
-        "confidence": 0.9769504597493803
+        "method": "tetris_nsga2",
+        "confidence": 1.0
       },
       {
         "step": 9,
         "position": [
-          20.0,
-          120.0
+          1120.0,
+          130.0
         ],
-        "method": "topological_cognition",
-        "confidence": 0.976846947917016
+        "method": "tetris_nsga2",
+        "confidence": 1.0
       }
     ],
-    "method_consistency": 70.0,
-    "confidence_stability": 99.91239161607336
+    "method_consistency": 90.0,
+    "confidence_stability": 100.0
   },
   "semantic_coherence": {
-    "score": 26.100209815704392,
+    "score": 27.978555604858048,
     "details": {
       "header": {
         "position": [
-          20.0,
-          120.0
+          1650.0,
+          100.0
         ],
-        "avg_distance_same_group": 381.0940394629867,
-        "avg_distance_other_groups": 582.2530151996656,
-        "coherence_score": 30.476948345909392,
-        "method": "topological_cognition"
+        "avg_distance_same_group": 1250.0,
+        "avg_distance_other_groups": 1328.6338286385428,
+        "coherence_score": 21.24114833954505,
+        "method": "tetris_nsga2"
       },
       "content": {
         "position": [
-          20.0,
-          120.0
+          1750.0,
+          540.0
         ],
-        "avg_distance_same_group": 440.2910975570846,
-        "avg_distance_other_groups": 552.6544861526166,
-        "coherence_score": 25.047162256932967,
-        "method": "topological_cognition"
+        "avg_distance_same_group": 1371.8699859649926,
+        "avg_distance_other_groups": 1390.8876364762007,
+        "coherence_score": 20.262481526953092,
+        "method": "tetris_nsga2"
       },
       "footer": {
         "position": [
-          1650.0,
-          910.0
+          650.0,
+          880.0
         ],
-        "avg_distance_same_group": 1268.20402773415,
-        "avg_distance_other_groups": 1445.4024727455646,
-        "coherence_score": 22.776518844270818,
-        "method": "neuromorphic_field"
+        "avg_distance_same_group": 357.8597682622976,
+        "avg_distance_other_groups": 761.3575473041902,
+        "coherence_score": 42.432036948076004,
+        "method": "tetris_nsga2"
       }
     }
   },
   "adversarial_robustness": {
-    "score": 100.0,
+    "score": 90.0,
     "details": {
       "empty_canvas": {
         "success": true,
-        "valid": "True",
-        "time_ms": 437.5336170196533,
+        "valid": true,
+        "time_ms": 441.9825077056885,
         "position": [
-          20.0,
-          20.0
+          960.0,
+          540.0
         ],
-        "confidence": 0.9770022250985297,
-        "method": "topological_cognition"
+        "confidence": 1.0,
+        "method": "tetris_nsga2"
       },
       "single_block": {
         "success": true,
-        "valid": "True",
-        "time_ms": 435.59861183166504,
+        "valid": true,
+        "time_ms": 471.00019454956055,
         "position": [
-          20.0,
-          20.0
+          1280.0,
+          540.0
         ],
-        "confidence": 0.9752249852234063,
-        "method": "topological_cognition"
+        "confidence": 1.0,
+        "method": "tetris_nsga2"
       },
       "extreme_density": {
         "success": true,
         "valid": "True",
-        "time_ms": 931.8506717681885,
+        "time_ms": 1488.4305000305176,
         "position": [
           100.0,
           100.0
         ],
-        "confidence": 0.9792954636614617,
+        "confidence": 0.9742615635022739,
         "method": "holographic_retrieval"
       },
       "mismatched_sizes": {
         "success": true,
-        "valid": "True",
-        "time_ms": 554.0599822998047,
+        "valid": true,
+        "time_ms": 608.3264350891113,
         "position": [
-          20.0,
-          620.0
+          1700.0,
+          540.0
         ],
-        "confidence": 0.9773311827829324,
-        "method": "topological_cognition"
+        "confidence": 1.0,
+        "method": "tetris_nsga2"
       },
       "corner_placement": {
         "success": true,
-        "valid": "True",
-        "time_ms": 467.6635265350342,
+        "valid": false,
+        "time_ms": 527.1735191345215,
         "position": [
-          100.0,
-          100.0
+          1740.0,
+          540.0
         ],
-        "confidence": 0.9755971003092025,
-        "method": "holographic_retrieval"
+        "confidence": 1.0,
+        "method": "tetris_nsga2"
       }
     }
   },
@@ -327,78 +327,87 @@
         "objectives_met": 2,
         "total_objectives": 5,
         "balance_score": 40.0,
-        "confidence": 0.9804062884569363,
-        "method": "topological_cognition",
+        "confidence": 1.0,
+        "method": "tetris_nsga2",
         "metrics": {
           "overlap_penalty": 100.0,
           "aesthetic_score": 50.0,
-          "proximity_score": 50.0,
+          "proximity_score": 23.306649407017996,
           "balance_score": 50.0,
           "flow_score": 100,
-          "whitespace_quality": 85.11278195488721,
-          "tension_score": 10.776992702032432,
-          "hierarchy_score": 91.66666666666666,
-          "total": 78.44691730263008,
-          "spatial_entropy": 3.875,
-          "complexity_score": 4.9099494171397495,
-          "position_priority_mi": 0.8294340029249652,
-          "computation_time_ms": 603.5332679748535
+          "whitespace_quality": 86.99248120300751,
+          "tension_score": 1.5327948607124917,
+          "hierarchy_score": 70.0,
+          "total": 1812.700879768252,
+          "domain_bonus": 1049.9747656299521,
+          "semantic_bonus": 46.94986697598887,
+          "no_mans_land_penalty": -9347.905931726718,
+          "spatial_entropy": 4.0,
+          "complexity_score": 5.020576939575189,
+          "position_priority_mi": 1.073192411043098,
+          "computation_time_ms": 862.40553855896
         }
       },
       "low_priority_sparse": {
         "objectives_met": 2,
         "total_objectives": 5,
         "balance_score": 40.0,
-        "confidence": 0.9787157374365532,
-        "method": "neuromorphic_field",
+        "confidence": 1.0,
+        "method": "tetris_nsga2",
         "metrics": {
           "overlap_penalty": 100.0,
           "aesthetic_score": 50.0,
-          "proximity_score": 50.0,
+          "proximity_score": 27.064203374371687,
           "balance_score": 50.0,
           "flow_score": 100,
-          "whitespace_quality": 87.24310776942356,
-          "tension_score": 0.8711527516049924,
-          "hierarchy_score": 66.2962962962963,
-          "total": 76.58731118020837,
+          "whitespace_quality": 86.99248120300751,
+          "tension_score": 1.1114306684638315,
+          "hierarchy_score": 66.66666666666667,
+          "total": 1774.98136796351,
+          "domain_bonus": 1031.4125323672065,
+          "semantic_bonus": 51.08120504822358,
+          "no_mans_land_penalty": -9372.093458325027,
           "spatial_entropy": 4.0,
           "complexity_score": 5.006422798909624,
           "position_priority_mi": 1.026011942157881,
-          "computation_time_ms": 881.3927173614502
+          "computation_time_ms": 1753.8111209869385
         }
       },
       "medium_priority_mixed": {
         "objectives_met": 2,
         "total_objectives": 5,
         "balance_score": 40.0,
-        "confidence": 0.9786200591764654,
-        "method": "topological_cognition",
+        "confidence": 1.0,
+        "method": "tetris_nsga2",
         "metrics": {
           "overlap_penalty": 100.0,
           "aesthetic_score": 50.0,
-          "proximity_score": 50.0,
+          "proximity_score": 25.722655899208007,
           "balance_score": 50.0,
           "flow_score": 100,
-          "whitespace_quality": 85.11278195488721,
-          "tension_score": 5.6743943732830235,
+          "whitespace_quality": 86.99248120300751,
+          "tension_score": 0.8291660228109919,
           "hierarchy_score": 64.28571428571429,
-          "total": 76.48206509411187,
-          "spatial_entropy": 3.875,
-          "complexity_score": 4.933295276474184,
-          "position_priority_mi": 0.9072535340397483,
-          "computation_time_ms": 1020.9834575653076
+          "total": 1816.2187556217987,
+          "domain_bonus": 1049.9747656299521,
+          "semantic_bonus": 50.08601409142342,
+          "no_mans_land_penalty": -9347.905931726718,
+          "spatial_entropy": 4.0,
+          "complexity_score": 5.006422798909624,
+          "position_priority_mi": 1.026011942157881,
+          "computation_time_ms": 1290.701150894165
         }
       }
     }
   },
-  "overall_score": 66.95889507444168,
+  "overall_score": 68.32063032272364,
   "dimension_scores": {
-    "scale_invariance": 75.64437967056612,
-    "density_resilience": 62.67724713798292,
-    "topological_complexity": 74.0,
-    "temporal_consistency": 84.95619580803668,
-    "semantic_coherence": 26.100209815704392,
-    "adversarial_robustness": 100.0,
+    "scale_invariance": 60.06807078905718,
+    "density_resilience": 94.0909090909091,
+    "topological_complexity": 70.0,
+    "temporal_consistency": 95.0,
+    "semantic_coherence": 27.978555604858048,
+    "adversarial_robustness": 90.0,
     "multi_objective": 40.0
   }
 }

@@ -1282,10 +1282,13 @@ class EnhancedSpatialReasoningEngine:
         # Physics-based placement with zero-overlap guarantee
         tetris_pos = self._tetris_nsga2_placement(new_block, constraints)
         if tetris_pos:
+            tetris_score = self._enhanced_score_position(tetris_pos, new_block, constraints)
+            # MASSIVE BONUS: Zero-overlap guarantee is worth more than any other consideration
+            tetris_score['total'] += 10000  # Ensures Tetris wins scoring competition
             strategies_results.append({
                 'method': 'tetris_nsga2',
                 'position': tetris_pos,
-                'score': self._enhanced_score_position(tetris_pos, new_block, constraints)
+                'score': tetris_score
             })
 
         # Select best result across all strategies
@@ -1902,37 +1905,44 @@ class EnhancedSpatialReasoningEngine:
                     priority=b.priority
                 ))
 
-            # Run NSGA-II optimization (balanced mode for quality)
-            optimizer = NSGA2TetrisOptimizer(
-                canvas_width=constraints.max_width,
-                canvas_height=constraints.max_height,
-                population_size=30,   # Larger population for diversity
-                n_generations=20      # More generations for convergence
-            )
+            # ADAPTIVE COMPUTATION: Try multiple attempts with increasing budget
+            # Dramatically increases zero-overlap success rate
+            attempts = [
+                (30, 20),   # Fast: 30 pop, 20 gen
+                (40, 40),   # Medium: 40 pop, 40 gen
+            ]
 
-            solution = optimizer.optimize_placement([tetris_block], existing_tetris)
+            for attempt_num, (pop_size, n_gen) in enumerate(attempts):
+                optimizer = NSGA2TetrisOptimizer(
+                    canvas_width=constraints.max_width,
+                    canvas_height=constraints.max_height,
+                    population_size=pop_size,
+                    n_generations=n_gen
+                )
 
-            # Extract position from solution
-            if solution.blocks:
-                placed_block = solution.blocks[0]
+                solution = optimizer.optimize_placement([tetris_block], existing_tetris)
 
-                # CRITICAL: Verify zero overlaps before accepting
-                test_pos = {'x': placed_block.x, 'y': placed_block.y}
-                test_block = {**new_block, **test_pos}
+                if solution.blocks:
+                    placed_block = solution.blocks[0]
+                    test_pos = {'x': placed_block.x, 'y': placed_block.y}
 
-                # Check for intersections with existing blocks
-                has_overlap = False
-                for existing in self.canvas_state:
-                    if not (test_pos['x'] + new_block.get('width', 200) <= existing.x or
-                            test_pos['x'] >= existing.x + existing.width or
-                            test_pos['y'] + new_block.get('height', 150) <= existing.y or
-                            test_pos['y'] >= existing.y + existing.height):
-                        has_overlap = True
-                        break
+                    # Verify zero overlaps
+                    has_overlap = False
+                    for existing in self.canvas_state:
+                        if not (test_pos['x'] + new_block.get('width', 200) <= existing.x or
+                                test_pos['x'] >= existing.x + existing.width or
+                                test_pos['y'] + new_block.get('height', 150) <= existing.y or
+                                test_pos['y'] >= existing.y + existing.height):
+                            has_overlap = True
+                            break
 
-                # Only return if truly zero overlaps
-                if not has_overlap:
-                    return test_pos
+                    # Return immediately if zero overlaps found
+                    if not has_overlap:
+                        return test_pos
+
+                # If no solution on first try, attempt harder optimization
+                if attempt_num < len(attempts) - 1:
+                    continue
 
         except Exception as e:
             # Fallback gracefully if Tetris fails
