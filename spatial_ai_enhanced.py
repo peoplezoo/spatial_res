@@ -535,8 +535,8 @@ class TopologicalSpatialCognition:
         current_blocks = [b.to_dict() for b in existing_blocks]
         current_topology = self.topology_analyzer.analyze_topology(current_blocks)
 
-        # Generate candidate positions
-        candidates = self._generate_topological_candidates(new_block, constraints)
+        # Generate candidate positions (including semantic-aware candidates)
+        candidates = self._generate_topological_candidates(new_block, existing_blocks, constraints)
 
         # Score each candidate based on topological preservation
         best_candidate = None
@@ -568,21 +568,38 @@ class TopologicalSpatialCognition:
     def _generate_topological_candidates(
         self,
         new_block: Dict[str, Any],
+        existing_blocks: List,
         constraints: Any
     ) -> List[Dict[str, float]]:
-        """Generate candidates using topological principles"""
+        """Generate candidates using topological principles + semantic awareness"""
 
         candidates = []
         max_width = getattr(constraints, 'max_width', 1920)
         max_height = getattr(constraints, 'max_height', 1080)
         margin = getattr(constraints, 'min_padding', 20)
 
-        # Grid-based candidates
+        # PRIORITY 1: Add semantic candidates if same group exists
+        semantic_group = new_block.get('semantic_group')
+        if semantic_group and existing_blocks:
+            same_group = [b for b in existing_blocks
+                         if hasattr(b, 'semantic_group') and b.semantic_group == semantic_group]
+            if same_group:
+                # Add candidates near same-group blocks (tight clustering)
+                for block in same_group:
+                    for dx in [-50, 0, 50, 100, 150]:
+                        for dy in [-50, 0, 50, 100, 150]:
+                            x = block.x + dx
+                            y = block.y + dy
+                            if margin <= x <= max_width - new_block.get('width', 200) - margin:
+                                if margin <= y <= max_height - new_block.get('height', 150) - margin:
+                                    candidates.append({'x': float(x), 'y': float(y)})
+
+        # PRIORITY 2: Grid-based candidates for topology
         for x in range(int(margin), int(max_width - new_block.get('width', 200)), 100):
             for y in range(int(margin), int(max_height - new_block.get('height', 150)), 100):
                 candidates.append({'x': float(x), 'y': float(y)})
 
-        return candidates[:50]  # Limit candidates for performance
+        return candidates[:100]  # Increased limit to include semantic candidates
 
     def _score_topology(
         self,
@@ -691,16 +708,23 @@ class HolographicPatternRetrieval:
     ) -> Dict[str, float]:
         """
         Aggregate positions from similar patterns with similarity weighting
+        ENHANCED: Boost semantic similarity
         """
 
         total_weight = 0.0
         weighted_x = 0.0
         weighted_y = 0.0
 
+        target_semantic_group = new_block.get('semantic_group')
+
         for pattern in similar_patterns:
             similarity = pattern.get('similarity', 0.5)
             x = pattern.get('x', 100)
             y = pattern.get('y', 100)
+
+            # ENHANCED: Boost weight for semantic group match
+            if target_semantic_group and pattern.get('semantic_group') == target_semantic_group:
+                similarity *= 2.0  # Double the weight for same semantic group
 
             # Weight by similarity
             weighted_x += x * similarity
@@ -736,6 +760,22 @@ class HolographicPatternRetrieval:
         priority = new_block.get('priority', 5)
         semantic_group = new_block.get('semantic_group')
 
+        # ENHANCED: Prioritize semantic grouping over priority
+        if semantic_group and existing_blocks:
+            # Find blocks in the same semantic group
+            same_group_blocks = [b for b in existing_blocks
+                               if hasattr(b, 'semantic_group') and b.semantic_group == semantic_group]
+
+            if same_group_blocks:
+                # Place near the centroid of same-group blocks
+                avg_x = sum(b.x for b in same_group_blocks) / len(same_group_blocks)
+                avg_y = sum(b.y for b in same_group_blocks) / len(same_group_blocks)
+
+                # Find position near centroid
+                return self._find_position_near(
+                    avg_x, avg_y, new_block, existing_blocks, constraints
+                )
+
         # High priority items go top-left
         if priority >= 8:
             return {'x': 50.0, 'y': 50.0}
@@ -744,6 +784,36 @@ class HolographicPatternRetrieval:
         else:
             # Find empty space
             return self._find_empty_space(new_block, existing_blocks, constraints)
+
+    def _find_position_near(
+        self,
+        target_x: float,
+        target_y: float,
+        new_block: Dict[str, Any],
+        existing_blocks: List,
+        constraints: Any
+    ) -> Dict[str, float]:
+        """Find position near a target location for semantic grouping"""
+
+        max_width = getattr(constraints, 'max_width', 1920)
+        max_height = getattr(constraints, 'max_height', 1080)
+        margin = getattr(constraints, 'min_padding', 20)
+
+        # Try positions in a tight spiral pattern around the target
+        # MUCH smaller steps (10px instead of 30px) to cluster semantically-related items
+        for radius in range(0, 400, 10):  # Reduced max radius and step size
+            for angle in np.linspace(0, 2*np.pi, 16):  # More angles for better coverage
+                x = target_x + radius * np.cos(angle)
+                y = target_y + radius * np.sin(angle)
+
+                if margin <= x <= max_width - new_block.get('width', 200) - margin:
+                    if margin <= y <= max_height - new_block.get('height', 150) - margin:
+                        # Check if position is free
+                        if self._is_position_free(x, y, new_block, existing_blocks):
+                            return {'x': x, 'y': y}
+
+        # Fallback to regular empty space search
+        return self._find_empty_space(new_block, existing_blocks, constraints)
 
     def _find_empty_space(
         self,
@@ -890,13 +960,15 @@ class NeuromorphicFieldComputation:
         """
         Find optimal position using neuromorphic field dynamics
         Simulates biological spatial processing
+        ENHANCED: Now semantic-aware
         """
 
         if not self.neuromorphic_field:
             return {'x': 200.0, 'y': 200.0}
 
-        # Create field input from existing blocks
-        field_input = self._create_field_input(existing_blocks)
+        # Create field input from existing blocks with semantic awareness
+        target_semantic_group = new_block.get('semantic_group')
+        field_input = self._create_field_input(existing_blocks, target_semantic_group)
 
         # Evolve neuromorphic field
         for step in range(self.evolution_steps):
@@ -921,11 +993,13 @@ class NeuromorphicFieldComputation:
 
     def _create_field_input(
         self,
-        existing_blocks: List
+        existing_blocks: List,
+        target_semantic_group: str = None
     ) -> np.ndarray:
         """
         Create field input representation from existing blocks
         Each block creates activation based on priority
+        ENHANCED: Semantic awareness for grouping
         """
 
         if not self.neuromorphic_field:
@@ -950,6 +1024,16 @@ class NeuromorphicFieldComputation:
 
             # Add activation based on priority (higher priority = more inhibition)
             activation_strength = block.priority / 10.0
+
+            # ENHANCED: Reduce inhibition for same semantic group (attract)
+            if target_semantic_group and hasattr(block, 'semantic_group'):
+                if block.semantic_group == target_semantic_group:
+                    # Same group: reduce inhibition to attract new block
+                    activation_strength *= 0.5
+                else:
+                    # Different group: increase inhibition to repel
+                    activation_strength *= 1.5
+
             field_input[field_y:field_y+field_h, field_x:field_x+field_w] += activation_strength
 
         return field_input
@@ -1298,10 +1382,37 @@ class EnhancedSpatialReasoningEngine:
         weights = self._get_learned_weights()
         
         metrics['total'] = sum(
-            weights.get(k.replace('_score', '').replace('_penalty', ''), 0.1) * v 
+            weights.get(k.replace('_score', '').replace('_penalty', ''), 0.1) * v
             for k, v in metrics.items()
         )
-        
+
+        # CRITICAL: Add explicit semantic clustering bonus
+        # This directly rewards positions near same-group blocks
+        semantic_group = new_block.get('semantic_group')
+        if semantic_group and self.canvas_state:
+            same_group = [b for b in self.canvas_state
+                         if hasattr(b, 'semantic_group') and b.semantic_group == semantic_group]
+            if same_group:
+                # Calculate AVERAGE distance to all same-group blocks
+                # This ensures clustering near the group centroid, not just one member
+                block_center = (test_block['x'] + test_block.get('width', 200)/2,
+                               test_block['y'] + test_block.get('height', 150)/2)
+                distances = []
+                for b in same_group:
+                    b_center = (b.x + b.width/2, b.y + b.height/2)
+                    dist = ((block_center[0] - b_center[0])**2 +
+                           (block_center[1] - b_center[1])**2)**0.5
+                    distances.append(dist)
+
+                avg_dist = sum(distances) / len(distances)
+
+                # ULTRA-MASSIVE semantic clustering bonus based on AVERAGE distance
+                # This pulls blocks toward the group centroid for tight overall clustering
+                # Target: minimize average distance to achieve 4-5x separation ratio
+                semantic_bonus = 50000 / (avg_dist + 10)
+                metrics['total'] += semantic_bonus
+                metrics['semantic_bonus'] = semantic_bonus
+
         return metrics
     
     def _calculate_flow_score(self, block: Dict) -> float:
@@ -1444,12 +1555,12 @@ class EnhancedSpatialReasoningEngine:
     
     def _get_learned_weights(self) -> Dict[str, float]:
         """Get learned weights from preference model"""
-        
+
         # Default weights
         default_weights = {
             'overlap': 1.0,
             'aesthetic': 0.3,
-            'proximity': 0.25,
+            'proximity': 0.85,  # DRAMATICALLY increased for strong semantic coherence (was 0.50)
             'balance': 0.2,
             'flow': 0.15,
             'whitespace_quality': 0.2,
@@ -1608,8 +1719,63 @@ class EnhancedSpatialReasoningEngine:
         return 50.0
     
     def _calculate_proximity_score(self, block: Dict) -> float:
-        """Calculate proximity score (base implementation)"""
-        return 50.0
+        """
+        Calculate proximity score for semantic grouping
+        ENHANCED: Strong semantic group awareness
+        """
+        if not self.canvas_state:
+            return 50.0
+
+        semantic_group = block.get('semantic_group')
+        if not semantic_group:
+            return 50.0
+
+        # Find blocks in same semantic group
+        same_group = [b for b in self.canvas_state
+                     if hasattr(b, 'semantic_group') and b.semantic_group == semantic_group]
+
+        # Find blocks in different semantic groups
+        other_group = [b for b in self.canvas_state
+                      if hasattr(b, 'semantic_group') and b.semantic_group != semantic_group]
+
+        if not same_group:
+            return 50.0
+
+        block_center = (block['x'] + block.get('width', 200)/2,
+                       block['y'] + block.get('height', 150)/2)
+
+        # Calculate average distance to same group
+        same_distances = []
+        for b in same_group:
+            b_center = (b.x + b.width/2, b.y + b.height/2)
+            dist = ((block_center[0] - b_center[0])**2 +
+                   (block_center[1] - b_center[1])**2)**0.5
+            same_distances.append(dist)
+
+        avg_same_dist = sum(same_distances) / len(same_distances)
+
+        # Calculate average distance to other groups
+        if other_group:
+            other_distances = []
+            for b in other_group:
+                b_center = (b.x + b.width/2, b.y + b.height/2)
+                dist = ((block_center[0] - b_center[0])**2 +
+                       (block_center[1] - b_center[1])**2)**0.5
+                other_distances.append(dist)
+            avg_other_dist = sum(other_distances) / len(other_distances)
+        else:
+            avg_other_dist = avg_same_dist * 2  # Assume good separation
+
+        # Score: close to same group (low avg_same_dist) and far from others (high avg_other_dist)
+        # Ideal ratio is 4:1 (4x farther from other groups)
+        if avg_same_dist > 0:
+            separation_ratio = avg_other_dist / avg_same_dist
+            # Score 100 when ratio is 4 or higher, scale down linearly
+            score = min(100, (separation_ratio / 4.0) * 100)
+        else:
+            score = 100  # Perfect overlap with same group
+
+        return score
     
     def _calculate_balance_score(self, block: Dict, constraints: PlacementConstraints) -> float:
         """Calculate balance score (base implementation)"""
