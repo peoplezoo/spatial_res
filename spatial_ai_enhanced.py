@@ -1263,6 +1263,16 @@ class EnhancedSpatialReasoningEngine:
                 'score': self._enhanced_score_position(neuro_pos, new_block, constraints)
             })
 
+        # Strategy 7: Domain-Aware Semantic Clustering
+        # This strategy generates candidates specifically near the semantic domain center
+        domain_pos = self._domain_aware_placement(new_block, constraints)
+        if domain_pos:
+            strategies_results.append({
+                'method': 'domain_aware_semantic',
+                'position': domain_pos,
+                'score': self._enhanced_score_position(domain_pos, new_block, constraints)
+            })
+
         # Select best result across all strategies
         if not strategies_results:
             return self._fallback_placement(new_block, constraints)
@@ -1386,9 +1396,37 @@ class EnhancedSpatialReasoningEngine:
             for k, v in metrics.items()
         )
 
+        # DOMAIN SPLITTING: Enforce semantic spatial domains
+        semantic_group = new_block.get('semantic_group')
+        if semantic_group and self.canvas_state:
+            same_group = [b for b in self.canvas_state
+                         if hasattr(b, 'semantic_group') and b.semantic_group == semantic_group]
+
+            if same_group:
+                # Detect the spatial domain centroid for this semantic group
+                domain = self._detect_semantic_domain(same_group)
+
+                # Calculate distance to domain centroid
+                block_center = (test_block['x'] + test_block.get('width', 200)/2,
+                               test_block['y'] + test_block.get('height', 150)/2)
+
+                domain_center_x = (domain['x_min'] + domain['x_max']) / 2
+                domain_center_y = (domain['y_min'] + domain['y_max']) / 2
+
+                dist_to_center = np.sqrt(
+                    (block_center[0] - domain_center_x)**2 +
+                    (block_center[1] - domain_center_y)**2
+                )
+
+                # ULTRA-STRONG graduated domain bonus: dominates all other factors
+                # This creates an overwhelming "gravity well" toward the semantic group's spatial region
+                # At domain center: +100000, at 100px: +50000, at 200px: +33333, at 300px: +25000
+                domain_bonus = 1000000 / (dist_to_center + 10)
+                metrics['total'] += domain_bonus
+                metrics['domain_bonus'] = domain_bonus
+
         # CRITICAL: Add explicit semantic clustering bonus
         # This directly rewards positions near same-group blocks
-        semantic_group = new_block.get('semantic_group')
         if semantic_group and self.canvas_state:
             same_group = [b for b in self.canvas_state
                          if hasattr(b, 'semantic_group') and b.semantic_group == semantic_group]
@@ -1718,6 +1756,80 @@ class EnhancedSpatialReasoningEngine:
         """Calculate aesthetic score (base implementation)"""
         return 50.0
     
+    def _domain_aware_placement(self, new_block: Dict, constraints: PlacementConstraints) -> Dict[str, float]:
+        """
+        Domain-aware placement strategy: generates candidates near semantic domain center.
+        This strategy specifically targets tight semantic clustering by placing blocks
+        in their semantic group's spatial region.
+        """
+        semantic_group = new_block.get('semantic_group')
+        if not semantic_group or not self.canvas_state:
+            return None
+
+        # Find blocks in same semantic group
+        same_group = [b for b in self.canvas_state
+                     if hasattr(b, 'semantic_group') and b.semantic_group == semantic_group]
+
+        if not same_group:
+            return None
+
+        # Detect domain
+        domain = self._detect_semantic_domain(same_group)
+        domain_center_x = (domain['x_min'] + domain['x_max']) / 2
+        domain_center_y = (domain['y_min'] + domain['y_max']) / 2
+
+        # Generate candidates in a tight grid around domain center
+        best_pos = None
+        best_score = -float('inf')
+
+        # Search in 10px increments in a tight radius for maximum clustering
+        for dx in range(-150, 151, 10):
+            for dy in range(-150, 151, 10):
+                x = domain_center_x + dx - new_block.get('width', 200) / 2
+                y = domain_center_y + dy - new_block.get('height', 150) / 2
+
+                # Check bounds
+                if (constraints.min_padding <= x <= constraints.max_width - new_block.get('width', 200) - constraints.min_padding and
+                    constraints.min_padding <= y <= constraints.max_height - new_block.get('height', 150) - constraints.min_padding):
+
+                    # Check no overlap
+                    test_block = {**new_block, 'x': x, 'y': y}
+                    if self._calculate_overlap_penalty(test_block) > 50:  # No major overlaps
+                        pos = {'x': x, 'y': y}
+                        score = self._enhanced_score_position(pos, new_block, constraints)
+
+                        if score['total'] > best_score:
+                            best_score = score['total']
+                            best_pos = pos
+
+        return best_pos
+
+    def _detect_semantic_domain(self, blocks: List) -> Dict[str, float]:
+        """
+        Detect the spatial domain (bounding box) for a semantic group.
+        Returns expanded bounding box with margin for flexibility.
+        """
+        if not blocks:
+            return {'x_min': 0, 'x_max': 1920, 'y_min': 0, 'y_max': 1080}
+
+        # Find bounding box of all blocks in this semantic group
+        xs = [b.x + b.width/2 for b in blocks]
+        ys = [b.y + b.height/2 for b in blocks]
+
+        min_x, max_x = min(xs), max(xs)
+        min_y, max_y = min(ys), max(ys)
+
+        # Add generous margin (200px) to allow some flexibility
+        # But still constrain to semantic region
+        margin = 200
+
+        return {
+            'x_min': max(0, min_x - margin),
+            'x_max': min(1920, max_x + margin),
+            'y_min': max(0, min_y - margin),
+            'y_max': min(1080, max_y + margin)
+        }
+
     def _calculate_proximity_score(self, block: Dict) -> float:
         """
         Calculate proximity score for semantic grouping
